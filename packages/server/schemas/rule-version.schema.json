@@ -1,0 +1,27 @@
+﻿{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "title": "RuleVersion",
+  "type": "object",
+  "required": ["version_id", "rule_id", "effective_start_date", "source_amendment", "lifecycle_stage", "created_by"],
+  "additionalProperties": false,
+  "properties": {
+    "version_id": { "type": "string", "format": "uuid" },
+    "rule_id": { "type": "string", "format": "uuid" },
+    "effective_start_date": { "type": "string", "format": "date" },
+    "effective_end_date": { "type": ["string", "null"], "format": "date" },
+    "source_amendment": {
+      "type": "object",
+      "required": ["document_id", "document_name"],
+      "additionalProperties": false,
+      "properties": {
+        "document_id": { "type": "string", "minLength": 1 },
+        "document_name": { "type": "string", "minLength": 1 },
+        "circular_number": { "type": ["string", "null"] }
+      }
+    },
+    "lifecycle_stage": { "type": "string", "enum": ["draft", "legal_review", "hq_approval", "sandbox_testing", "production", "superseded"] },
+    "created_by": { "type": "string", "minLength": 1 },
+    "approved_by": { "type": ["string", "null"] },
+    "deployment_timestamp": { "type": ["string", "null"], "format": "date-time" }
+  }
+}

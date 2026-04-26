@@ -1,0 +1,73 @@
+﻿{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "title": "RequestSchema",
+  "type": "object",
+  "required": ["claimant_id", "claim_date", "claim_type"],
+  "additionalProperties": false,
+  "properties": {
+    "claimant_id": { "type": "string", "minLength": 1 },
+    "claim_date": { "type": "string", "format": "date" },
+    "claim_type": { "type": "string", "enum": ["mobility_allowance", "vehicle_grant", "loan", "vehicle_less_allowance", "continued_payment"] },
+    "demographic": {
+      "type": "object", "additionalProperties": false,
+      "properties": {
+        "age": { "type": "integer", "minimum": 0, "maximum": 120 },
+        "residency": { "type": "string", "minLength": 1 },
+        "family_status": { "type": "string", "enum": ["single", "married", "divorced", "widowed"] }
+      }
+    },
+    "medical": {
+      "type": "object", "additionalProperties": false,
+      "properties": {
+        "disability_percentage": { "type": "number", "minimum": 0, "maximum": 100 },
+        "mobility_limitation_type": { "type": "string", "minLength": 1 },
+        "medical_institute_determination": { "type": "string", "minLength": 1 }
+      }
+    },
+    "vehicle": {
+      "type": "object", "additionalProperties": false,
+      "properties": {
+        "engine_volume": { "type": "integer", "minimum": 0 },
+        "vehicle_type": { "type": "string", "minLength": 1 },
+        "vehicle_age": { "type": "integer", "minimum": 0 },
+        "qualifying_vehicle": { "type": "boolean" }
+      }
+    },
+    "geographic": {
+      "type": "object", "additionalProperties": false,
+      "properties": {
+        "residence_zone": { "type": "string", "minLength": 1 },
+        "distance_to_services": { "type": "number", "minimum": 0 }
+      }
+    },
+    "procedural": {
+      "type": "object", "additionalProperties": false,
+      "properties": {
+        "claim_submission_date": { "type": "string", "format": "date" },
+        "appeal_deadline": { "type": ["string", "null"], "format": "date" },
+        "required_forms": { "type": "array", "items": { "type": "string", "minLength": 1 } }
+      }
+    },
+    "operational": {
+      "type": "object", "additionalProperties": false,
+      "properties": {
+        "institutional_residence_status": { "type": "boolean" },
+        "driver_license_holder": { "type": "boolean" },
+        "authorized_driver_status": { "type": "boolean" }
+      }
+    },
+    "evidence": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": ["document_type", "document_date"],
+        "additionalProperties": false,
+        "properties": {
+          "document_type": { "type": "string", "minLength": 1 },
+          "document_date": { "type": "string", "format": "date" },
+          "source": { "type": "string", "minLength": 1 }
+        }
+      }
+    }
+  }
+}

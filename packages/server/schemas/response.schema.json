@@ -1,0 +1,84 @@
+﻿{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "title": "ResponseSchema",
+  "type": "object",
+  "required": ["request_id", "decision", "applied_rules", "explanation_narrative", "processing_timestamp", "conflicts_resolved", "discretionary_flags"],
+  "additionalProperties": false,
+  "properties": {
+    "request_id": { "type": "string", "format": "uuid" },
+    "decision": { "type": "string", "enum": ["eligible", "not_eligible", "partial", "pending_discretion", "requires_additional_information"] },
+    "benefit_details": {
+      "type": ["object", "null"],
+      "additionalProperties": false,
+      "properties": {
+        "type": { "type": "string", "minLength": 1 },
+        "amount": { "type": "number", "minimum": 0 },
+        "duration": { "type": "string" },
+        "conditions": { "type": "array", "items": { "type": "string" } }
+      }
+    },
+    "applied_rules": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": ["rule_id", "evaluation_result", "legal_citation"],
+        "additionalProperties": false,
+        "properties": {
+          "rule_id": { "type": "string", "minLength": 1 },
+          "rule_version": { "type": "string" },
+          "evaluation_result": { "type": "string", "minLength": 1 },
+          "legal_citation": {
+            "type": "object",
+            "required": ["document_name", "section", "paragraph"],
+            "additionalProperties": false,
+            "properties": {
+              "document_name": { "type": "string", "minLength": 1 },
+              "section": { "type": "string", "minLength": 1 },
+              "paragraph": { "type": "string", "minLength": 1 },
+              "clause": { "type": ["string", "null"] }
+            }
+          }
+        }
+      }
+    },
+    "explanation_narrative": { "type": "string", "description": "Hebrew-language explanation of the decision" },
+    "processing_timestamp": { "type": "string", "format": "date-time" },
+    "data_quality_score": { "type": ["number", "null"], "minimum": 0, "maximum": 1 },
+    "evidence_validation": {
+      "type": ["object", "null"],
+      "additionalProperties": false,
+      "properties": {
+        "missing_documents": { "type": "array", "items": { "type": "object" } },
+        "contradictions": { "type": "array", "items": { "type": "object" } },
+        "stale_documents": { "type": "array", "items": { "type": "object" } }
+      }
+    },
+    "conflicts_resolved": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": ["conflicting_rule_ids", "winning_rule_id", "resolution_method", "legal_basis"],
+        "additionalProperties": false,
+        "properties": {
+          "conflicting_rule_ids": { "type": "array", "items": { "type": "string" } },
+          "winning_rule_id": { "type": "string", "minLength": 1 },
+          "resolution_method": { "type": "string", "minLength": 1 },
+          "legal_basis": { "type": "string", "minLength": 1 }
+        }
+      }
+    },
+    "discretionary_flags": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": ["flag_category", "reason", "applicable_rule_id"],
+        "additionalProperties": false,
+        "properties": {
+          "flag_category": { "type": "string", "enum": ["legal", "medical", "procedural"] },
+          "reason": { "type": "string", "minLength": 1 },
+          "applicable_rule_id": { "type": "string", "minLength": 1 }
+        }
+      }
+    }
+  }
+}

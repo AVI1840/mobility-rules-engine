@@ -1,0 +1,66 @@
+﻿{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "title": "VariableCatalog",
+  "type": "object",
+  "required": ["catalog_id", "source_document_id", "variables"],
+  "additionalProperties": false,
+  "properties": {
+    "catalog_id": { "type": "string", "format": "uuid" },
+    "source_document_id": { "type": "string", "minLength": 1 },
+    "extraction_timestamp": { "type": "string", "format": "date-time" },
+    "variables": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": ["name", "category", "data_type", "source"],
+        "additionalProperties": false,
+        "properties": {
+          "name": { "type": "string", "pattern": "^[a-z][a-z0-9_]*$" },
+          "category": { "type": "string", "enum": ["demographic", "medical", "vehicle", "geographic", "legal", "procedural", "financial", "operational"] },
+          "data_type": { "type": "string", "enum": ["string", "integer", "float", "boolean", "date", "enum"] },
+          "valid_range": {
+            "type": ["object", "null"],
+            "additionalProperties": false,
+            "properties": {
+              "min": { "type": "number" },
+              "max": { "type": "number" }
+            }
+          },
+          "enum_values": { "type": ["array", "null"], "items": { "type": "string" } },
+          "source": {
+            "type": "object",
+            "required": ["document_id", "page_number", "section_reference"],
+            "additionalProperties": false,
+            "properties": {
+              "document_id": { "type": "string", "minLength": 1 },
+              "page_number": { "type": "integer", "minimum": 1 },
+              "section_reference": { "type": "string", "minLength": 1 }
+            }
+          }
+        }
+      }
+    },
+    "ambiguous_terms": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": ["term", "source_location", "reason"],
+        "additionalProperties": false,
+        "properties": {
+          "term": { "type": "string", "minLength": 1 },
+          "source_location": {
+            "type": "object",
+            "required": ["document_id", "page_number", "section_reference"],
+            "additionalProperties": false,
+            "properties": {
+              "document_id": { "type": "string" },
+              "page_number": { "type": "integer" },
+              "section_reference": { "type": "string" }
+            }
+          },
+          "reason": { "type": "string", "minLength": 1 }
+        }
+      }
+    }
+  }
+}

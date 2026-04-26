@@ -1,0 +1,19 @@
+{
+  "name": "mobility-rules-engine",
+  "version": "0.1.0",
+  "private": true,
+  "description": "מנוע כללים דטרמיניסטי עבור מחלקת הניידות של המוסד לביטוח לאומי",
+  "workspaces": [
+    "packages/*"
+  ],
+  "scripts": {
+    "server:dev": "npm run dev -w packages/server",
+    "server:build": "npm run build -w packages/server",
+    "server:test": "npm run test -w packages/server",
+    "client:dev": "npm run dev -w packages/client",
+    "client:build": "npm run build -w packages/client"
+  },
+  "engines": {
+    "node": ">=18.0.0"
+  }
+}

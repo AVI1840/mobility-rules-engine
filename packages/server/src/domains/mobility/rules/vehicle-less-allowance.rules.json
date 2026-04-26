@@ -1,0 +1,54 @@
+{
+  "rule_id": "00000000-0000-0000-0000-000000000001",
+  "rule_name": "קצבת חסר רכב - שוהים במוסד (חוזר 1810)",
+  "source_document_id": "circular-1810",
+  "source_section": "חוזר ניידות 1810 - קצבת חסר רכב לשוהים במוסד",
+  "effective_date": "2010-01-01",
+  "expiry_date": null,
+  "priority": "circular",
+  "conditions": {
+    "type": "AND",
+    "operands": [
+      { "type": "COMPARISON", "variable": "institutional_residence_status", "operator": "eq", "value": true },
+      { "type": "COMPARISON", "variable": "disability_percentage", "operator": "gte", "value": 40 }
+    ]
+  },
+  "actions": [
+    { "action_type": "determine_eligibility", "parameters": { "outcome": "eligible", "benefit_type": "vehicle_less_allowance" } }
+  ],
+  "legal_citation": {
+    "document_name": "חוזר ניידות 1810",
+    "section": "קצבת חסר רכב לשוהים במוסד",
+    "paragraph": "1",
+    "clause": null
+  },
+  "discretionary_flag": false,
+  "discretionary_reason": null,
+  "decision_tree": {
+    "node_id": "vla-root",
+    "node_type": "condition",
+    "condition": {
+      "type": "AND",
+      "operands": [
+        { "type": "COMPARISON", "variable": "institutional_residence_status", "operator": "eq", "value": true },
+        { "type": "COMPARISON", "variable": "disability_percentage", "operator": "gte", "value": 40 }
+      ]
+    },
+    "true_branch": {
+      "node_id": "vla-eligible",
+      "node_type": "leaf",
+      "outcome": "eligible",
+      "legal_citation": { "document_name": "חוזר ניידות 1810", "section": "קצבת חסר רכב לשוהים במוסד", "paragraph": "1", "clause": null },
+      "depth": 1
+    },
+    "false_branch": {
+      "node_id": "vla-not-eligible",
+      "node_type": "leaf",
+      "outcome": "not_eligible",
+      "legal_citation": { "document_name": "חוזר ניידות 1810", "section": "קצבת חסר רכב לשוהים במוסד", "paragraph": "1", "clause": null },
+      "depth": 1
+    },
+    "legal_citation": { "document_name": "חוזר ניידות 1810", "section": "קצבת חסר רכב לשוהים במוסד", "paragraph": "1", "clause": null },
+    "depth": 0
+  }
+}

@@ -1,0 +1,72 @@
+{
+  "catalog_id": "mobility-pilot-v1",
+  "source_document_id": "mobility-agreement",
+  "extraction_timestamp": "2024-01-01T00:00:00.000Z",
+  "variables": [
+    {
+      "name": "institutional_residence_status",
+      "category": "operational",
+      "data_type": "boolean",
+      "valid_range": null,
+      "enum_values": null,
+      "source": { "document_id": "circular-1810", "page_number": 1, "section_reference": "חוזר ניידות 1810 סעיף 1" }
+    },
+    {
+      "name": "disability_percentage",
+      "category": "medical",
+      "data_type": "number",
+      "valid_range": { "min": 0, "max": 100 },
+      "enum_values": null,
+      "source": { "document_id": "mobility-agreement", "page_number": 1, "section_reference": "הסכם הניידות סעיף 1" }
+    },
+    {
+      "name": "mobility_limitation_type",
+      "category": "medical",
+      "data_type": "string",
+      "valid_range": null,
+      "enum_values": ["lower_limb", "upper_limb", "full_body", "other"],
+      "source": { "document_id": "mobility-agreement", "page_number": 1, "section_reference": "הסכם הניידות סעיף 2" }
+    },
+    {
+      "name": "driver_license_holder",
+      "category": "operational",
+      "data_type": "boolean",
+      "valid_range": null,
+      "enum_values": null,
+      "source": { "document_id": "mobility-agreement", "page_number": 2, "section_reference": "הסכם הניידות סעיף 3" }
+    },
+    {
+      "name": "authorized_driver_status",
+      "category": "operational",
+      "data_type": "boolean",
+      "valid_range": null,
+      "enum_values": null,
+      "source": { "document_id": "mobility-agreement", "page_number": 2, "section_reference": "הסכם הניידות סעיף 3" }
+    },
+    {
+      "name": "engine_volume",
+      "category": "vehicle",
+      "data_type": "number",
+      "valid_range": { "min": 0, "max": 10000 },
+      "enum_values": null,
+      "source": { "document_id": "circular-2056", "page_number": 1, "section_reference": "חוזר ניידות 2056 סעיף 1" }
+    },
+    {
+      "name": "qualifying_vehicle",
+      "category": "vehicle",
+      "data_type": "boolean",
+      "valid_range": null,
+      "enum_values": null,
+      "source": { "document_id": "mobility-agreement", "page_number": 3, "section_reference": "הסכם הניידות סעיף 4" }
+    },
+    {
+      "name": "age",
+      "category": "demographic",
+      "data_type": "number",
+      "valid_range": { "min": 0, "max": 120 },
+      "enum_values": null,
+      "source": { "document_id": "mobility-agreement", "page_number": 1, "section_reference": "הסכם הניידות סעיף 1" }
+    }
+  ],
+  "ambiguous_terms": []
+}

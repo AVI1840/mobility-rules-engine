@@ -1,0 +1,7 @@
+node_modules/
+dist/
+.env
+.env.local
+packages/server/data/audit/*.jsonl
+packages/client/dist/
+*.log
