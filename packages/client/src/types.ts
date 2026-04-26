@@ -1,5 +1,6 @@
 export type ClaimType = 'vehicle_less_allowance' | 'mobility_allowance' | 'vehicle_grant' | 'loan' | 'continued_payment';
 export type Decision = 'eligible' | 'not_eligible' | 'partial' | 'pending_discretion' | 'requires_additional_information';
+export type CertaintyClass = 'A_deterministic' | 'B_recommendation' | 'C_discretion_required';
 
 export interface LegalCitation {
   document_name: string;
@@ -15,11 +16,23 @@ export interface AppliedRule {
   legal_citation: LegalCitation;
 }
 
+export interface CertaintyClassification {
+  certainty_class: CertaintyClass;
+  certainty_label_he: string;
+  confidence_score: number;
+  reasoning: string;
+  required_reviewer?: string | null;
+  unresolved_ambiguities: string[];
+  legal_support_strength: 'strong' | 'moderate' | 'weak';
+  automatable: boolean;
+}
+
 export interface EvaluationResponse {
   status: 'success' | 'error';
   data?: {
     request_id: string;
     decision: Decision;
+    certainty_classification?: CertaintyClassification;
     benefit_details?: { type: string; amount: number; duration?: string } | null;
     applied_rules: AppliedRule[];
     explanation_narrative: string;

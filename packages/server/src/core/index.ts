@@ -5,3 +5,4 @@ export * from './temporal.js';
 export * from './conflict.js';
 export * from './audit.js';
 export * from './validator.js';
+export * from './certainty.js';

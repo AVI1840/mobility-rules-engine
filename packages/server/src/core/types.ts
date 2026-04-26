@@ -55,6 +55,26 @@ export type LifecycleStage = 'draft' | 'legal_review' | 'hq_approval' | 'sandbox
 
 export type FlagCategory = 'legal' | 'medical' | 'procedural';
 
+// ---------------------------------------------------------------------------
+// Certainty Classification — Decision Confidence System
+// ---------------------------------------------------------------------------
+
+/** CLASS A: Fully deterministic, automatable decision */
+/** CLASS B: Policy-supported recommendation with strong legal basis */
+/** CLASS C: Requires professional discretion (clerk, social worker, medical authority) */
+export type CertaintyClass = 'A_deterministic' | 'B_recommendation' | 'C_discretion_required';
+
+export interface CertaintyClassification {
+  certainty_class: CertaintyClass;
+  certainty_label_he: string;
+  confidence_score: number; // 0.0 to 1.0
+  reasoning: string;
+  required_reviewer?: string | null;
+  unresolved_ambiguities: string[];
+  legal_support_strength: 'strong' | 'moderate' | 'weak';
+  automatable: boolean;
+}
+
 export type AuthorityLevel = 'senior_legal_advisor' | 'legal_advisor' | 'senior_claims_officer' | 'claims_officer';
 
 export type Role = 'system_admin' | 'policy_author' | 'legal_reviewer' | 'hq_approver' | 'claims_officer' | 'auditor' | 'api_consumer';
@@ -206,6 +226,7 @@ export interface DiscretionaryFlagRecord {
 export interface ResponseSchema {
   request_id: string;
   decision: Decision;
+  certainty_classification: CertaintyClassification;
   benefit_details?: BenefitDetails | null;
   applied_rules: AppliedRule[];
   explanation_narrative: string;

@@ -16,8 +16,10 @@ import type {
   AuditStep,
   AppliedRule,
   Decision,
+  DiscretionaryFlagRecord,
 } from './types.js';
 import { traverseDecisionTree, evaluateCondition } from './evaluator.js';
+import { classifyCertainty } from './certainty.js';
 
 // ---------------------------------------------------------------------------
 // Variable flattening
@@ -216,9 +218,28 @@ export class RulesEngine {
 
     const decision = determineDecision(evaluations);
 
+    // Collect discretionary flags from rules that flagged discretion
+    const discretionaryFlags: DiscretionaryFlagRecord[] = evaluations
+      .filter(e => e.outcome === 'requires_discretion')
+      .map(e => ({
+        flag_category: 'legal' as const,
+        reason: `כלל ${e.rule_id} דורש שיקול דעת מקצועי`,
+        applicable_rule_id: e.rule_id,
+      }));
+
+    // Classify certainty
+    const certaintyClassification = classifyCertainty(
+      decision,
+      evaluations,
+      discretionaryFlags,
+      [], // conflicts resolved
+      false, // no unresolvable conflicts in this version
+    );
+
     return {
       request_id,
       decision,
+      certainty_classification: certaintyClassification,
       benefit_details: null,
       applied_rules: appliedRules,
       explanation_narrative: 'הסבר יופיע בקרוב',
@@ -226,7 +247,7 @@ export class RulesEngine {
       data_quality_score: null,
       evidence_validation: null,
       conflicts_resolved: [],
-      discretionary_flags: [],
+      discretionary_flags: discretionaryFlags,
     };
   }
 

@@ -178,8 +178,50 @@ export function EligibilityForm({ onResult }: Props) {
                       </span>
                     )}
                   </div>
+
+                  {/* Certainty Classification */}
+                  {result.data?.certainty_classification && (() => {
+                    const cc = result.data.certainty_classification;
+                    const ccStyles: Record<string, string> = {
+                      A_deterministic: 'bg-green-50 border-green-300 text-green-800',
+                      B_recommendation: 'bg-amber-50 border-amber-300 text-amber-800',
+                      C_discretion_required: 'bg-red-50 border-red-300 text-red-800',
+                    };
+                    const ccIcons: Record<string, string> = {
+                      A_deterministic: '✅',
+                      B_recommendation: '⚠️',
+                      C_discretion_required: '🔍',
+                    };
+                    return (
+                      <div className={`rounded-lg border p-4 space-y-2 ${ccStyles[cc.certainty_class] ?? ''}`}>
+                        <div className="flex items-center justify-between">
+                          <span className="text-sm font-bold">
+                            {ccIcons[cc.certainty_class]} {cc.certainty_label_he}
+                          </span>
+                          <span className="text-xs font-mono px-2 py-0.5 rounded bg-white/60">
+                            ביטחון: {(cc.confidence_score * 100).toFixed(0)}%
+                          </span>
+                        </div>
+                        <p className="text-xs">{cc.reasoning}</p>
+                        {cc.required_reviewer && (
+                          <p className="text-xs font-medium">גורם מאשר נדרש: {cc.required_reviewer}</p>
+                        )}
+                        {cc.unresolved_ambiguities.length > 0 && (
+                          <div className="text-xs">
+                            <span className="font-medium">עמימויות: </span>
+                            {cc.unresolved_ambiguities.join('; ')}
+                          </div>
+                        )}
+                        <div className="flex items-center gap-3 text-xs">
+                          <span>חוזק משפטי: {cc.legal_support_strength === 'strong' ? 'חזק' : cc.legal_support_strength === 'moderate' ? 'בינוני' : 'חלש'}</span>
+                          <span>{cc.automatable ? '🤖 ניתן לאוטומציה' : '👤 דורש סקירה אנושית'}</span>
+                        </div>
+                      </div>
+                    );
+                  })()}
+
                   {result.processing_time_ms !== undefined && (
-                    <p className="text-xs text-gray-400">זמן עיבוד: {result.processing_time_ms} ms</p>
+                    <p className="text-xs text-gray-400">זמן עיבוד: {result.processing_time_ms} ms | {result.data?.applied_rules.length ?? 0} כללים נבדקו</p>
                   )}
                   {result.data?.benefit_details && (
                     <div className="bg-gray-50 rounded-lg p-3 text-sm">
