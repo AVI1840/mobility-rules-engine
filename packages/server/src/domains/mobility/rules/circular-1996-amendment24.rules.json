@@ -1,0 +1,68 @@
+{
+  "rule_id": "00000000-0000-0000-0000-000000000004",
+  "rule_name": "תיקון 24 להסכם ניידות - קריטריוני זכאות מעודכנים (חוזר 1996)",
+  "source_document_id": "circular-1996",
+  "source_section": "חוזר 1996 - תיקון 24 להסכם ניידות",
+  "effective_date": "2018-01-01",
+  "expiry_date": null,
+  "priority": "statutory",
+  "conditions": {
+    "type": "AND",
+    "operands": [
+      { "type": "COMPARISON", "variable": "disability_percentage", "operator": "gte", "value": 40 },
+      { "type": "COMPARISON", "variable": "claim_date", "operator": "gte", "value": "2018-01-01" },
+      {
+        "type": "OR",
+        "operands": [
+          { "type": "COMPARISON", "variable": "driver_license_holder", "operator": "eq", "value": true },
+          { "type": "COMPARISON", "variable": "authorized_driver_status", "operator": "eq", "value": true }
+        ]
+      }
+    ]
+  },
+  "actions": [
+    { "action_type": "determine_eligibility", "parameters": { "outcome": "eligible", "benefit_type": "mobility_allowance", "note": "זכאות לפי תיקון 24 - קריטריונים מעודכנים" } }
+  ],
+  "legal_citation": {
+    "document_name": "חוזר 1996 - תיקון 24 להסכם ניידות",
+    "section": "תיקון 24",
+    "paragraph": "1",
+    "clause": "א"
+  },
+  "discretionary_flag": false,
+  "discretionary_reason": null,
+  "decision_tree": {
+    "node_id": "c1996-root",
+    "node_type": "condition",
+    "condition": {
+      "type": "AND",
+      "operands": [
+        { "type": "COMPARISON", "variable": "disability_percentage", "operator": "gte", "value": 40 },
+        { "type": "COMPARISON", "variable": "claim_date", "operator": "gte", "value": "2018-01-01" },
+        {
+          "type": "OR",
+          "operands": [
+            { "type": "COMPARISON", "variable": "driver_license_holder", "operator": "eq", "value": true },
+            { "type": "COMPARISON", "variable": "authorized_driver_status", "operator": "eq", "value": true }
+          ]
+        }
+      ]
+    },
+    "true_branch": {
+      "node_id": "c1996-eligible",
+      "node_type": "leaf",
+      "outcome": "eligible",
+      "legal_citation": { "document_name": "חוזר 1996 - תיקון 24", "section": "תיקון 24", "paragraph": "1", "clause": "א" },
+      "depth": 1
+    },
+    "false_branch": {
+      "node_id": "c1996-not-eligible",
+      "node_type": "leaf",
+      "outcome": "not_eligible",
+      "legal_citation": { "document_name": "חוזר 1996 - תיקון 24", "section": "תיקון 24", "paragraph": "1", "clause": "א" },
+      "depth": 1
+    },
+    "legal_citation": { "document_name": "חוזר 1996 - תיקון 24", "section": "תיקון 24", "paragraph": "1", "clause": "א" },
+    "depth": 0
+  }
+}

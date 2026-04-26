@@ -1,0 +1,58 @@
+{
+  "rule_id": "00000000-0000-0000-0000-000000000009",
+  "rule_name": "הנחיות כלליות לטיפול בתביעות ניידות (חוזר 1931)",
+  "source_document_id": "circular-1931",
+  "source_section": "חוזר 1931 - הנחיות כלליות",
+  "effective_date": "2010-06-01",
+  "expiry_date": null,
+  "priority": "procedural",
+  "conditions": {
+    "type": "AND",
+    "operands": [
+      { "type": "EXISTS", "variable": "claimant_id" },
+      { "type": "EXISTS", "variable": "claim_date" },
+      { "type": "EXISTS", "variable": "disability_percentage" },
+      { "type": "COMPARISON", "variable": "disability_percentage", "operator": "gte", "value": 40 }
+    ]
+  },
+  "actions": [
+    { "action_type": "determine_eligibility", "parameters": { "outcome": "eligible", "benefit_type": "procedural_compliance", "note": "התביעה עומדת בדרישות הנוהליות הבסיסיות לפי חוזר 1931" } }
+  ],
+  "legal_citation": {
+    "document_name": "חוזר 1931",
+    "section": "הנחיות כלליות לטיפול בתביעות",
+    "paragraph": "1",
+    "clause": null
+  },
+  "discretionary_flag": false,
+  "discretionary_reason": null,
+  "decision_tree": {
+    "node_id": "c1931-root",
+    "node_type": "condition",
+    "condition": {
+      "type": "AND",
+      "operands": [
+        { "type": "EXISTS", "variable": "claimant_id" },
+        { "type": "EXISTS", "variable": "claim_date" },
+        { "type": "EXISTS", "variable": "disability_percentage" },
+        { "type": "COMPARISON", "variable": "disability_percentage", "operator": "gte", "value": 40 }
+      ]
+    },
+    "true_branch": {
+      "node_id": "c1931-compliant",
+      "node_type": "leaf",
+      "outcome": "eligible",
+      "legal_citation": { "document_name": "חוזר 1931", "section": "הנחיות כלליות", "paragraph": "1", "clause": null },
+      "depth": 1
+    },
+    "false_branch": {
+      "node_id": "c1931-missing-info",
+      "node_type": "leaf",
+      "outcome": "requires_additional_information",
+      "legal_citation": { "document_name": "חוזר 1931", "section": "הנחיות כלליות", "paragraph": "1", "clause": null },
+      "depth": 1
+    },
+    "legal_citation": { "document_name": "חוזר 1931", "section": "הנחיות כלליות", "paragraph": "1", "clause": null },
+    "depth": 0
+  }
+}

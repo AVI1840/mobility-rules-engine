@@ -1,0 +1,61 @@
+{
+  "rule_id": "00000000-0000-0000-0000-000000000006",
+  "rule_name": "יישום בג\"צ שושנה לוי - הרחבת זכאות (חוזר 1905)",
+  "source_document_id": "circular-1905",
+  "source_section": "חוזר 1905 - יישום בג\"צ שושנה לוי",
+  "effective_date": "2008-01-01",
+  "expiry_date": null,
+  "priority": "judicial_override",
+  "conditions": {
+    "type": "AND",
+    "operands": [
+      { "type": "COMPARISON", "variable": "disability_percentage", "operator": "gte", "value": 40 },
+      { "type": "COMPARISON", "variable": "mobility_limitation_type", "operator": "in", "value": ["lower_limb", "full_body"] },
+      {
+        "type": "NOT",
+        "operands": [
+          { "type": "COMPARISON", "variable": "driver_license_holder", "operator": "eq", "value": true }
+        ]
+      }
+    ]
+  },
+  "actions": [
+    { "action_type": "determine_eligibility", "parameters": { "outcome": "eligible", "benefit_type": "mobility_allowance", "note": "זכאות מורחבת לפי בג\"צ שושנה לוי - מי שאינו מחזיק רישיון נהיגה בשל מוגבלות" } }
+  ],
+  "legal_citation": {
+    "document_name": "בג\"צ שושנה לוי (חוזר 1905)",
+    "section": "הרחבת זכאות למי שאינו מחזיק רישיון",
+    "paragraph": "1",
+    "clause": null
+  },
+  "discretionary_flag": false,
+  "discretionary_reason": null,
+  "decision_tree": {
+    "node_id": "c1905-root",
+    "node_type": "condition",
+    "condition": {
+      "type": "AND",
+      "operands": [
+        { "type": "COMPARISON", "variable": "disability_percentage", "operator": "gte", "value": 40 },
+        { "type": "COMPARISON", "variable": "mobility_limitation_type", "operator": "in", "value": ["lower_limb", "full_body"] },
+        { "type": "NOT", "operands": [{ "type": "COMPARISON", "variable": "driver_license_holder", "operator": "eq", "value": true }] }
+      ]
+    },
+    "true_branch": {
+      "node_id": "c1905-eligible",
+      "node_type": "leaf",
+      "outcome": "eligible",
+      "legal_citation": { "document_name": "בג\"צ שושנה לוי (חוזר 1905)", "section": "הרחבת זכאות", "paragraph": "1", "clause": null },
+      "depth": 1
+    },
+    "false_branch": {
+      "node_id": "c1905-not-applicable",
+      "node_type": "leaf",
+      "outcome": "not_eligible",
+      "legal_citation": { "document_name": "בג\"צ שושנה לוי (חוזר 1905)", "section": "הרחבת זכאות", "paragraph": "1", "clause": null },
+      "depth": 1
+    },
+    "legal_citation": { "document_name": "בג\"צ שושנה לוי (חוזר 1905)", "section": "הרחבת זכאות", "paragraph": "1", "clause": null },
+    "depth": 0
+  }
+}

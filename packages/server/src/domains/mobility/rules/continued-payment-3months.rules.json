@@ -1,0 +1,56 @@
+{
+  "rule_id": "00000000-0000-0000-0000-000000000010",
+  "rule_name": "המשך תשלום קצבה 3 חודשים לאחר פטירה/אשפוז מורשה נהיגה",
+  "source_document_id": "opinion-continued-payment",
+  "source_section": "חוות דעת - המשך תשלום קצבה למשך שלושה חודשים",
+  "effective_date": "2005-01-01",
+  "expiry_date": null,
+  "priority": "statutory",
+  "conditions": {
+    "type": "AND",
+    "operands": [
+      { "type": "COMPARISON", "variable": "claim_type", "operator": "eq", "value": "continued_payment" },
+      { "type": "COMPARISON", "variable": "authorized_driver_deceased_or_hospitalized", "operator": "eq", "value": true },
+      { "type": "COMPARISON", "variable": "months_since_event", "operator": "lte", "value": 3 }
+    ]
+  },
+  "actions": [
+    { "action_type": "determine_eligibility", "parameters": { "outcome": "eligible", "benefit_type": "continued_payment", "duration": "3 months", "note": "המשך תשלום קצבה למשך 3 חודשים מהמועד שבו מורשה הנהיגה נפטר או אושפז" } }
+  ],
+  "legal_citation": {
+    "document_name": "חוות דעת - המשך תשלום קצבה",
+    "section": "המשך תשלום למשך 3 חודשים",
+    "paragraph": "1",
+    "clause": null
+  },
+  "discretionary_flag": false,
+  "discretionary_reason": null,
+  "decision_tree": {
+    "node_id": "cp3m-root",
+    "node_type": "condition",
+    "condition": {
+      "type": "AND",
+      "operands": [
+        { "type": "COMPARISON", "variable": "claim_type", "operator": "eq", "value": "continued_payment" },
+        { "type": "COMPARISON", "variable": "authorized_driver_deceased_or_hospitalized", "operator": "eq", "value": true },
+        { "type": "COMPARISON", "variable": "months_since_event", "operator": "lte", "value": 3 }
+      ]
+    },
+    "true_branch": {
+      "node_id": "cp3m-eligible",
+      "node_type": "leaf",
+      "outcome": "eligible",
+      "legal_citation": { "document_name": "חוות דעת - המשך תשלום קצבה", "section": "המשך תשלום 3 חודשים", "paragraph": "1", "clause": null },
+      "depth": 1
+    },
+    "false_branch": {
+      "node_id": "cp3m-not-eligible",
+      "node_type": "leaf",
+      "outcome": "not_eligible",
+      "legal_citation": { "document_name": "חוות דעת - המשך תשלום קצבה", "section": "המשך תשלום 3 חודשים", "paragraph": "1", "clause": null },
+      "depth": 1
+    },
+    "legal_citation": { "document_name": "חוות דעת - המשך תשלום קצבה", "section": "המשך תשלום 3 חודשים", "paragraph": "1", "clause": null },
+    "depth": 0
+  }
+}

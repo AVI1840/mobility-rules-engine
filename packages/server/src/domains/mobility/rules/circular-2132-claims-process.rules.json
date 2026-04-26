@@ -1,0 +1,56 @@
+{
+  "rule_id": "00000000-0000-0000-0000-000000000005",
+  "rule_name": "שינוי בהליך הגשת תביעה להטבות בניידות (חוזר 2132)",
+  "source_document_id": "circular-2132",
+  "source_section": "חוזר ניידות 2132 - שינוי בהליך הגשת תביעה",
+  "effective_date": "2020-01-01",
+  "expiry_date": null,
+  "priority": "circular",
+  "conditions": {
+    "type": "AND",
+    "operands": [
+      { "type": "EXISTS", "variable": "claimant_id" },
+      { "type": "EXISTS", "variable": "claim_date" },
+      { "type": "COMPARISON", "variable": "claim_date", "operator": "gte", "value": "2020-01-01" }
+    ]
+  },
+  "actions": [
+    { "action_type": "determine_eligibility", "parameters": { "outcome": "eligible", "benefit_type": "claims_process_updated", "note": "הליך הגשה מעודכן לפי חוזר 2132 - תביעה מקוונת" } }
+  ],
+  "legal_citation": {
+    "document_name": "חוזר ניידות 2132",
+    "section": "שינוי בהליך הגשת תביעה להטבות בניידות",
+    "paragraph": "1",
+    "clause": null
+  },
+  "discretionary_flag": false,
+  "discretionary_reason": null,
+  "decision_tree": {
+    "node_id": "c2132-root",
+    "node_type": "condition",
+    "condition": {
+      "type": "AND",
+      "operands": [
+        { "type": "EXISTS", "variable": "claimant_id" },
+        { "type": "EXISTS", "variable": "claim_date" },
+        { "type": "COMPARISON", "variable": "claim_date", "operator": "gte", "value": "2020-01-01" }
+      ]
+    },
+    "true_branch": {
+      "node_id": "c2132-updated-process",
+      "node_type": "leaf",
+      "outcome": "eligible",
+      "legal_citation": { "document_name": "חוזר ניידות 2132", "section": "הליך הגשה מעודכן", "paragraph": "1", "clause": null },
+      "depth": 1
+    },
+    "false_branch": {
+      "node_id": "c2132-legacy-process",
+      "node_type": "leaf",
+      "outcome": "requires_additional_information",
+      "legal_citation": { "document_name": "חוזר ניידות 2132", "section": "הליך הגשה ישן", "paragraph": "1", "clause": null },
+      "depth": 1
+    },
+    "legal_citation": { "document_name": "חוזר ניידות 2132", "section": "שינוי בהליך הגשת תביעה", "paragraph": "1", "clause": null },
+    "depth": 0
+  }
+}

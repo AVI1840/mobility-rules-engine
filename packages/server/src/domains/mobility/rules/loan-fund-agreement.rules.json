@@ -1,0 +1,70 @@
+{
+  "rule_id": "00000000-0000-0000-0000-000000000011",
+  "rule_name": "זכאות הלוואה מקרן הלוואות ניידות",
+  "source_document_id": "loan-fund-agreement",
+  "source_section": "הסכם קרן הלוואות - זכאות הלוואה",
+  "effective_date": "2000-01-01",
+  "expiry_date": null,
+  "priority": "statutory",
+  "conditions": {
+    "type": "AND",
+    "operands": [
+      { "type": "COMPARISON", "variable": "claim_type", "operator": "eq", "value": "loan" },
+      { "type": "COMPARISON", "variable": "disability_percentage", "operator": "gte", "value": 40 },
+      {
+        "type": "OR",
+        "operands": [
+          { "type": "COMPARISON", "variable": "driver_license_holder", "operator": "eq", "value": true },
+          { "type": "COMPARISON", "variable": "authorized_driver_status", "operator": "eq", "value": true }
+        ]
+      },
+      { "type": "COMPARISON", "variable": "qualifying_vehicle", "operator": "eq", "value": true }
+    ]
+  },
+  "actions": [
+    { "action_type": "determine_eligibility", "parameters": { "outcome": "eligible", "benefit_type": "loan", "note": "זכאי להלוואה מקרן הלוואות ניידות לרכישת רכב" } }
+  ],
+  "legal_citation": {
+    "document_name": "הסכם קרן הלוואות",
+    "section": "זכאות הלוואה",
+    "paragraph": "1",
+    "clause": null
+  },
+  "discretionary_flag": false,
+  "discretionary_reason": null,
+  "decision_tree": {
+    "node_id": "loan-root",
+    "node_type": "condition",
+    "condition": {
+      "type": "AND",
+      "operands": [
+        { "type": "COMPARISON", "variable": "claim_type", "operator": "eq", "value": "loan" },
+        { "type": "COMPARISON", "variable": "disability_percentage", "operator": "gte", "value": 40 },
+        {
+          "type": "OR",
+          "operands": [
+            { "type": "COMPARISON", "variable": "driver_license_holder", "operator": "eq", "value": true },
+            { "type": "COMPARISON", "variable": "authorized_driver_status", "operator": "eq", "value": true }
+          ]
+        },
+        { "type": "COMPARISON", "variable": "qualifying_vehicle", "operator": "eq", "value": true }
+      ]
+    },
+    "true_branch": {
+      "node_id": "loan-eligible",
+      "node_type": "leaf",
+      "outcome": "eligible",
+      "legal_citation": { "document_name": "הסכם קרן הלוואות", "section": "זכאות הלוואה", "paragraph": "1", "clause": null },
+      "depth": 1
+    },
+    "false_branch": {
+      "node_id": "loan-not-eligible",
+      "node_type": "leaf",
+      "outcome": "not_eligible",
+      "legal_citation": { "document_name": "הסכם קרן הלוואות", "section": "זכאות הלוואה", "paragraph": "1", "clause": null },
+      "depth": 1
+    },
+    "legal_citation": { "document_name": "הסכם קרן הלוואות", "section": "זכאות הלוואה", "paragraph": "1", "clause": null },
+    "depth": 0
+  }
+}

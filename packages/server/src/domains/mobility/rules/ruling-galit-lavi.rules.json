@@ -1,0 +1,56 @@
+{
+  "rule_id": "00000000-0000-0000-0000-000000000013",
+  "rule_name": "פסק דין גלית לביא - הרחבת זכאות",
+  "source_document_id": "ruling-galit-lavi",
+  "source_section": "פסק דין גלית לביא",
+  "effective_date": "2016-01-01",
+  "expiry_date": null,
+  "priority": "judicial_override",
+  "conditions": {
+    "type": "AND",
+    "operands": [
+      { "type": "COMPARISON", "variable": "disability_percentage", "operator": "gte", "value": 40 },
+      { "type": "COMPARISON", "variable": "mobility_limitation_type", "operator": "in", "value": ["lower_limb", "upper_limb", "full_body"] },
+      { "type": "COMPARISON", "variable": "lavi_precedent_applicable", "operator": "eq", "value": true }
+    ]
+  },
+  "actions": [
+    { "action_type": "determine_eligibility", "parameters": { "outcome": "eligible", "benefit_type": "mobility_allowance", "note": "זכאות מורחבת בהתאם לתקדים פסק דין גלית לביא" } }
+  ],
+  "legal_citation": {
+    "document_name": "פסק דין גלית לביא",
+    "section": "הרחבת זכאות ניידות",
+    "paragraph": "1",
+    "clause": null
+  },
+  "discretionary_flag": false,
+  "discretionary_reason": null,
+  "decision_tree": {
+    "node_id": "lavi-root",
+    "node_type": "condition",
+    "condition": {
+      "type": "AND",
+      "operands": [
+        { "type": "COMPARISON", "variable": "disability_percentage", "operator": "gte", "value": 40 },
+        { "type": "COMPARISON", "variable": "mobility_limitation_type", "operator": "in", "value": ["lower_limb", "upper_limb", "full_body"] },
+        { "type": "COMPARISON", "variable": "lavi_precedent_applicable", "operator": "eq", "value": true }
+      ]
+    },
+    "true_branch": {
+      "node_id": "lavi-eligible",
+      "node_type": "leaf",
+      "outcome": "eligible",
+      "legal_citation": { "document_name": "פסק דין גלית לביא", "section": "הרחבת זכאות", "paragraph": "1", "clause": null },
+      "depth": 1
+    },
+    "false_branch": {
+      "node_id": "lavi-not-applicable",
+      "node_type": "leaf",
+      "outcome": "not_eligible",
+      "legal_citation": { "document_name": "פסק דין גלית לביא", "section": "הרחבת זכאות", "paragraph": "1", "clause": null },
+      "depth": 1
+    },
+    "legal_citation": { "document_name": "פסק דין גלית לביא", "section": "הרחבת זכאות", "paragraph": "1", "clause": null },
+    "depth": 0
+  }
+}

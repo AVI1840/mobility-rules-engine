@@ -1,0 +1,56 @@
+{
+  "rule_id": "00000000-0000-0000-0000-000000000007",
+  "rule_name": "משיכת ערר - כללי משיכה וביטול (חוזר 1984)",
+  "source_document_id": "circular-1984",
+  "source_section": "חוזר 1984 - משיכת ערר",
+  "effective_date": "2012-01-01",
+  "expiry_date": null,
+  "priority": "procedural",
+  "conditions": {
+    "type": "AND",
+    "operands": [
+      { "type": "COMPARISON", "variable": "claim_type", "operator": "eq", "value": "appeal_withdrawal" },
+      { "type": "EXISTS", "variable": "appeal_deadline" },
+      { "type": "COMPARISON", "variable": "appeal_status", "operator": "eq", "value": "withdrawn" }
+    ]
+  },
+  "actions": [
+    { "action_type": "determine_eligibility", "parameters": { "outcome": "eligible", "benefit_type": "appeal_withdrawal_processed", "note": "ערר נמשך - ההחלטה המקורית נשארת בתוקף" } }
+  ],
+  "legal_citation": {
+    "document_name": "חוזר 1984",
+    "section": "משיכת ערר",
+    "paragraph": "1",
+    "clause": null
+  },
+  "discretionary_flag": false,
+  "discretionary_reason": null,
+  "decision_tree": {
+    "node_id": "c1984-root",
+    "node_type": "condition",
+    "condition": {
+      "type": "AND",
+      "operands": [
+        { "type": "COMPARISON", "variable": "claim_type", "operator": "eq", "value": "appeal_withdrawal" },
+        { "type": "EXISTS", "variable": "appeal_deadline" },
+        { "type": "COMPARISON", "variable": "appeal_status", "operator": "eq", "value": "withdrawn" }
+      ]
+    },
+    "true_branch": {
+      "node_id": "c1984-processed",
+      "node_type": "leaf",
+      "outcome": "eligible",
+      "legal_citation": { "document_name": "חוזר 1984", "section": "משיכת ערר", "paragraph": "1", "clause": null },
+      "depth": 1
+    },
+    "false_branch": {
+      "node_id": "c1984-not-applicable",
+      "node_type": "leaf",
+      "outcome": "not_eligible",
+      "legal_citation": { "document_name": "חוזר 1984", "section": "משיכת ערר", "paragraph": "1", "clause": null },
+      "depth": 1
+    },
+    "legal_citation": { "document_name": "חוזר 1984", "section": "משיכת ערר", "paragraph": "1", "clause": null },
+    "depth": 0
+  }
+}

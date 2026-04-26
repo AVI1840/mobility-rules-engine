@@ -1,0 +1,54 @@
+{
+  "rule_id": "00000000-0000-0000-0000-000000000012",
+  "rule_name": "פסק דין רות הדאיה - עדכון טפסים ומקרים לטיפול",
+  "source_document_id": "ruling-ruth-hadaya",
+  "source_section": "פסק דין רות הדאיה - עדכון טפסים",
+  "effective_date": "2015-01-01",
+  "expiry_date": null,
+  "priority": "judicial_override",
+  "conditions": {
+    "type": "AND",
+    "operands": [
+      { "type": "EXISTS", "variable": "claimant_id" },
+      { "type": "COMPARISON", "variable": "requires_form_update", "operator": "eq", "value": true }
+    ]
+  },
+  "actions": [
+    { "action_type": "refer_to_review", "parameters": { "note": "נדרש עדכון טפסים בהתאם לפסק דין רות הדאיה - יש לוודא שימוש בטפסים מעודכנים" } }
+  ],
+  "legal_citation": {
+    "document_name": "פסק דין רות הדאיה",
+    "section": "עדכון טפסים ומקרים לטיפול",
+    "paragraph": "1",
+    "clause": null
+  },
+  "discretionary_flag": true,
+  "discretionary_reason": "פסק הדין מחייב בדיקה ידנית של טפסים ומקרים ספציפיים",
+  "decision_tree": {
+    "node_id": "hadaya-root",
+    "node_type": "condition",
+    "condition": {
+      "type": "AND",
+      "operands": [
+        { "type": "EXISTS", "variable": "claimant_id" },
+        { "type": "COMPARISON", "variable": "requires_form_update", "operator": "eq", "value": true }
+      ]
+    },
+    "true_branch": {
+      "node_id": "hadaya-review",
+      "node_type": "leaf",
+      "outcome": "requires_discretion",
+      "legal_citation": { "document_name": "פסק דין רות הדאיה", "section": "עדכון טפסים", "paragraph": "1", "clause": null },
+      "depth": 1
+    },
+    "false_branch": {
+      "node_id": "hadaya-not-applicable",
+      "node_type": "leaf",
+      "outcome": "not_eligible",
+      "legal_citation": { "document_name": "פסק דין רות הדאיה", "section": "עדכון טפסים", "paragraph": "1", "clause": null },
+      "depth": 1
+    },
+    "legal_citation": { "document_name": "פסק דין רות הדאיה", "section": "עדכון טפסים", "paragraph": "1", "clause": null },
+    "depth": 0
+  }
+}

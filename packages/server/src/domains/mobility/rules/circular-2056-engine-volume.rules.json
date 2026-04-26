@@ -1,0 +1,56 @@
+{
+  "rule_id": "00000000-0000-0000-0000-000000000003",
+  "rule_name": "סמכות המכון לקבוע רכב בנפח מנוע קטן (חוזר 2056)",
+  "source_document_id": "circular-2056",
+  "source_section": "חוזר ניידות 2056 - סמכות המכון לקבוע רכב בנפח מנוע קטן יותר",
+  "effective_date": "2015-01-01",
+  "expiry_date": null,
+  "priority": "circular",
+  "conditions": {
+    "type": "AND",
+    "operands": [
+      { "type": "COMPARISON", "variable": "claim_type", "operator": "eq", "value": "vehicle_grant" },
+      { "type": "COMPARISON", "variable": "disability_percentage", "operator": "gte", "value": 40 },
+      { "type": "COMPARISON", "variable": "medical_institute_determination", "operator": "eq", "value": "smaller_engine" }
+    ]
+  },
+  "actions": [
+    { "action_type": "determine_eligibility", "parameters": { "outcome": "eligible", "benefit_type": "vehicle_grant", "note": "נפח מנוע מופחת לפי קביעת המכון הרפואי" } }
+  ],
+  "legal_citation": {
+    "document_name": "חוזר ניידות 2056",
+    "section": "סמכות המכון לקבוע רכב בנפח מנוע קטן יותר מהרכב הקובע",
+    "paragraph": "1",
+    "clause": null
+  },
+  "discretionary_flag": true,
+  "discretionary_reason": "קביעת נפח מנוע מופחת נתונה לשיקול דעת המכון הרפואי",
+  "decision_tree": {
+    "node_id": "c2056-root",
+    "node_type": "condition",
+    "condition": {
+      "type": "AND",
+      "operands": [
+        { "type": "COMPARISON", "variable": "claim_type", "operator": "eq", "value": "vehicle_grant" },
+        { "type": "COMPARISON", "variable": "disability_percentage", "operator": "gte", "value": 40 },
+        { "type": "COMPARISON", "variable": "medical_institute_determination", "operator": "eq", "value": "smaller_engine" }
+      ]
+    },
+    "true_branch": {
+      "node_id": "c2056-discretion",
+      "node_type": "leaf",
+      "outcome": "requires_discretion",
+      "legal_citation": { "document_name": "חוזר ניידות 2056", "section": "סמכות המכון", "paragraph": "1", "clause": null },
+      "depth": 1
+    },
+    "false_branch": {
+      "node_id": "c2056-standard",
+      "node_type": "leaf",
+      "outcome": "not_eligible",
+      "legal_citation": { "document_name": "חוזר ניידות 2056", "section": "סמכות המכון", "paragraph": "1", "clause": null },
+      "depth": 1
+    },
+    "legal_citation": { "document_name": "חוזר ניידות 2056", "section": "סמכות המכון", "paragraph": "1", "clause": null },
+    "depth": 0
+  }
+}

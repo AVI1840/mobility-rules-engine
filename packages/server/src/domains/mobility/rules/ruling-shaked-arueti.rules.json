@@ -1,0 +1,54 @@
+{
+  "rule_id": "00000000-0000-0000-0000-000000000014",
+  "rule_name": "פסד שקד ארועטי - תקדים שיפוטי",
+  "source_document_id": "ruling-shaked-arueti",
+  "source_section": "פסד שקד ארועטי",
+  "effective_date": "2014-01-01",
+  "expiry_date": null,
+  "priority": "judicial_override",
+  "conditions": {
+    "type": "AND",
+    "operands": [
+      { "type": "COMPARISON", "variable": "disability_percentage", "operator": "gte", "value": 40 },
+      { "type": "COMPARISON", "variable": "arueti_precedent_applicable", "operator": "eq", "value": true }
+    ]
+  },
+  "actions": [
+    { "action_type": "determine_eligibility", "parameters": { "outcome": "eligible", "benefit_type": "mobility_allowance", "note": "זכאות בהתאם לתקדים פסד שקד ארועטי" } }
+  ],
+  "legal_citation": {
+    "document_name": "פסד שקד ארועטי",
+    "section": "תקדים שיפוטי",
+    "paragraph": "1",
+    "clause": null
+  },
+  "discretionary_flag": false,
+  "discretionary_reason": null,
+  "decision_tree": {
+    "node_id": "arueti-root",
+    "node_type": "condition",
+    "condition": {
+      "type": "AND",
+      "operands": [
+        { "type": "COMPARISON", "variable": "disability_percentage", "operator": "gte", "value": 40 },
+        { "type": "COMPARISON", "variable": "arueti_precedent_applicable", "operator": "eq", "value": true }
+      ]
+    },
+    "true_branch": {
+      "node_id": "arueti-eligible",
+      "node_type": "leaf",
+      "outcome": "eligible",
+      "legal_citation": { "document_name": "פסד שקד ארועטי", "section": "תקדים שיפוטי", "paragraph": "1", "clause": null },
+      "depth": 1
+    },
+    "false_branch": {
+      "node_id": "arueti-not-applicable",
+      "node_type": "leaf",
+      "outcome": "not_eligible",
+      "legal_citation": { "document_name": "פסד שקד ארועטי", "section": "תקדים שיפוטי", "paragraph": "1", "clause": null },
+      "depth": 1
+    },
+    "legal_citation": { "document_name": "פסד שקד ארועטי", "section": "תקדים שיפוטי", "paragraph": "1", "clause": null },
+    "depth": 0
+  }
+}
