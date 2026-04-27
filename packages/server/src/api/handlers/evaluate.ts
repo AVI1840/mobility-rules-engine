@@ -4,6 +4,7 @@ import { validateRequest } from '../../core/validator.js';
 import { engine } from '../server.js';
 import { renderExplanation } from '../../explainability/renderer.js';
 import { createAuditTrail, writeAuditTrail, buildEvaluationContext } from '../../core/audit.js';
+import { validateLegalDefensibility } from '../../core/accountability.js';
 import type { EngineError } from '../../core/types.js';
 
 export async function evaluateHandler(req: Request, res: Response): Promise<void> {
@@ -71,6 +72,7 @@ export async function evaluateHandler(req: Request, res: Response): Promise<void
       data: response,
       audit_trail_id: uuidv4(),
       processing_time_ms,
+      accountability: validateLegalDefensibility(response),
     });
   } catch (err) {
     console.error('Evaluation error:', err);

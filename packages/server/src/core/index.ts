@@ -6,3 +6,4 @@ export * from './conflict.js';
 export * from './audit.js';
 export * from './validator.js';
 export * from './certainty.js';
+export * from './accountability.js';
