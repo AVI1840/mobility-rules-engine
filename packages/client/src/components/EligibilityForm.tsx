@@ -1,7 +1,7 @@
 import { useState } from 'react';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
-import { apiPost } from '@/lib/api';
+import { apiPost, wasLastCallDemo } from '@/lib/api';
 import type { EvaluationResponse, EvaluationRequest, ClaimType } from '@/types';
 
 interface Props {
@@ -27,6 +27,7 @@ export function EligibilityForm({ onResult }: Props) {
   const [loading, setLoading] = useState(false);
   const [result, setResult] = useState<EvaluationResponse | null>(null);
   const [error, setError] = useState('');
+  const [isDemoMode, setIsDemoMode] = useState(false);
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -48,6 +49,7 @@ export function EligibilityForm({ onResult }: Props) {
     setLoading(true);
     try {
       const data = await apiPost<EvaluationResponse>('/api/v1/evaluate', body);
+      setIsDemoMode(wasLastCallDemo());
       setResult(data);
       onResult(data);
     } catch {
@@ -164,6 +166,11 @@ export function EligibilityForm({ onResult }: Props) {
           {/* Result */}
           {result && (
             <div className="mt-6 border-t pt-5 space-y-3">
+              {isDemoMode && (
+                <div className="bg-amber-50 border border-amber-300 rounded-lg p-3 text-sm text-amber-800">
+                  ⚠️ מצב הדגמה — השרת אינו מחובר. התוצאות מבוססות על מנוע דמו מקומי ואינן מהוות החלטה רשמית.
+                </div>
+              )}
               {result.status === 'error' ? (
                 <div className="bg-red-50 border border-red-200 rounded-lg p-4">
                   <p className="text-sm font-medium text-red-700">שגיאה: {result.error?.message}</p>
