@@ -7,7 +7,7 @@
 import { readFileSync } from 'fs';
 import { fileURLToPath } from 'url';
 import { dirname, join } from 'path';
-import Ajv from 'ajv';
+import Ajv, { type ErrorObject } from 'ajv';
 import addFormats from 'ajv-formats';
 import type { RuleDefinition, EngineError, ErrorDetail } from '../core/types.js';
 
@@ -139,7 +139,7 @@ function positionToLineChar(
   };
 }
 
-function buildExpectedMessage(error: Ajv['errors'] extends Array<infer E> ? E : never): string {
+function buildExpectedMessage(error: ErrorObject): string {
   switch (error.keyword) {
     case 'required':
       return `required field '${(error.params as { missingProperty: string }).missingProperty}' is missing`;

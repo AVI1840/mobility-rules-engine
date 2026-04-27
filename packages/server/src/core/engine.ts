@@ -53,6 +53,17 @@ function flattenRequest(request: RequestSchema): Record<string, unknown> {
     institutional_residence_status: request.operational?.institutional_residence_status,
     driver_license_holder: request.operational?.driver_license_holder,
     authorized_driver_status: request.operational?.authorized_driver_status,
+    authorized_driver_deceased_or_hospitalized: request.operational?.authorized_driver_deceased_or_hospitalized,
+    months_since_event: request.operational?.months_since_event,
+    // existing benefits (duplicate detection)
+    has_existing_benefit: request.existing_benefits?.has_existing_benefit,
+    existing_benefit_type: request.existing_benefits?.existing_benefit_type,
+    // appeal
+    appeal_status: request.appeal?.appeal_status,
+    // judicial precedent flags
+    requires_form_update: request.precedents?.requires_form_update,
+    lavi_precedent_applicable: request.precedents?.lavi_precedent_applicable,
+    arueti_precedent_applicable: request.precedents?.arueti_precedent_applicable,
   };
 }
 

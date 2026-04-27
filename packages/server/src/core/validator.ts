@@ -1,4 +1,4 @@
-import Ajv from 'ajv';
+import Ajv, { type ErrorObject } from 'ajv';
 import addFormats from 'ajv-formats';
 import { readFileSync } from 'fs';
 import { join, dirname } from 'path';
@@ -53,8 +53,8 @@ function mapErrorType(keyword: string): ErrorDetail['error_type'] {
   return 'schema_violation';
 }
 
-function buildEngineError(errors: ReturnType<typeof validateRequestFn.errors>, data: unknown): EngineError {
-  const details: ErrorDetail[] = (errors ?? []).map((err) => {
+function buildEngineError(errors: ErrorObject[] | null | undefined, data: unknown): EngineError {
+  const details: ErrorDetail[] = (errors ?? []).map((err: ErrorObject) => {
     const field = err.instancePath || (err.params && 'missingProperty' in err.params
       ? `/${err.params.missingProperty as string}`
       : '');

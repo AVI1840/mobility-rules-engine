@@ -184,6 +184,25 @@ export interface RequestSchema {
     institutional_residence_status?: boolean;
     driver_license_holder?: boolean;
     authorized_driver_status?: boolean;
+    /** Whether the authorized driver is deceased or hospitalized (for continued_payment claims) */
+    authorized_driver_deceased_or_hospitalized?: boolean;
+    /** Months since the driver death/hospitalization event */
+    months_since_event?: number;
+  };
+  /** Existing benefit information for duplicate detection (circular 1936) */
+  existing_benefits?: {
+    has_existing_benefit?: boolean;
+    existing_benefit_type?: string;
+  };
+  /** Appeal-related fields (circular 1984) */
+  appeal?: {
+    appeal_status?: 'pending' | 'withdrawn' | 'decided';
+  };
+  /** Judicial precedent applicability flags — set by intake officer */
+  precedents?: {
+    requires_form_update?: boolean;
+    lavi_precedent_applicable?: boolean;
+    arueti_precedent_applicable?: boolean;
   };
   evidence?: Array<{
     document_type: string;

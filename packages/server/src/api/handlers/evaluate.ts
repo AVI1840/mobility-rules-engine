@@ -1,5 +1,4 @@
 import type { Request, Response } from 'express';
-import { v4 as uuidv4 } from 'uuid';
 import { validateRequest } from '../../core/validator.js';
 import { engine } from '../server.js';
 import { renderExplanation } from '../../explainability/renderer.js';
@@ -70,7 +69,7 @@ export async function evaluateHandler(req: Request, res: Response): Promise<void
     res.status(200).json({
       status: 'success',
       data: response,
-      audit_trail_id: uuidv4(),
+      audit_trail_id: auditTrail.audit_id,
       processing_time_ms,
       accountability: validateLegalDefensibility(response),
     });

@@ -53,7 +53,30 @@
       "properties": {
         "institutional_residence_status": { "type": "boolean" },
         "driver_license_holder": { "type": "boolean" },
-        "authorized_driver_status": { "type": "boolean" }
+        "authorized_driver_status": { "type": "boolean" },
+        "authorized_driver_deceased_or_hospitalized": { "type": "boolean" },
+        "months_since_event": { "type": "number", "minimum": 0 }
+      }
+    },
+    "existing_benefits": {
+      "type": "object", "additionalProperties": false,
+      "properties": {
+        "has_existing_benefit": { "type": "boolean" },
+        "existing_benefit_type": { "type": "string" }
+      }
+    },
+    "appeal": {
+      "type": "object", "additionalProperties": false,
+      "properties": {
+        "appeal_status": { "type": "string", "enum": ["pending", "withdrawn", "decided"] }
+      }
+    },
+    "precedents": {
+      "type": "object", "additionalProperties": false,
+      "properties": {
+        "requires_form_update": { "type": "boolean" },
+        "lavi_precedent_applicable": { "type": "boolean" },
+        "arueti_precedent_applicable": { "type": "boolean" }
       }
     },
     "evidence": {
