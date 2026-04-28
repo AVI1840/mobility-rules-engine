@@ -145,6 +145,18 @@ export function ValidationWorkbench() {
         ⚠️ פיילוט ראשוני — כלי תומך החלטה. הולידציה נועדה לבנצ'מרק מקצועי בלבד, לא לשימוש מבצעי.
       </div>
 
+      <div className="bg-blue-50 border border-blue-200 rounded-lg p-4 text-sm text-blue-800 space-y-2">
+        <p className="font-medium">🔒 הנחיות אבטחת מידע — העלאת תיקים לולידציה</p>
+        <ul className="list-disc list-inside space-y-1 text-xs">
+          <li>העלאת תיקים אמיתיים מותרת <span className="font-bold">רק באישור מנהלת התחום</span></li>
+          <li>תיקים אמיתיים יורצו <span className="font-bold">רק בהרצה מקומית על המחשב</span> — לא דרך האינטרנט</li>
+          <li>הנתונים לא נשלחים לשום שרת חיצוני ולא נשמרים בענן</li>
+          <li>יש להשתמש בנתונים אנונימיים בלבד (ללא שם, ת.ז. אמיתי, או פרטים מזהים)</li>
+          <li>המדגם שמוצג כאן הוא <span className="font-bold">סינתטי לחלוטין</span> — לא מבוסס על תיקים אמיתיים</li>
+        </ul>
+        <p className="text-xs text-blue-600">להרצה מקומית: הפעל את השרת על המחשב שלך (ראה הוראות ב-README)</p>
+      </div>
+
       <Card>
         <CardHeader>
           <CardTitle className="text-lg">ולידציה — השוואת מנוע מול החלטות פקידים</CardTitle>

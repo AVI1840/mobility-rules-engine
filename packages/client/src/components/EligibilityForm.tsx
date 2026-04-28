@@ -2,6 +2,7 @@ import { useState } from 'react';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { apiPost, wasLastCallDemo } from '@/lib/api';
+import { InlineFeedback } from '@/components/InlineFeedback';
 import type { EvaluationResponse, EvaluationRequest, ClaimType } from '@/types';
 
 interface Props {
@@ -227,16 +228,46 @@ export function EligibilityForm({ onResult }: Props) {
                     );
                   })()}
 
+                  {/* Legal sources and citations */}
+                  {result.data && result.data.applied_rules.length > 0 && (
+                    <div className="space-y-2">
+                      <p className="text-sm font-medium text-gray-700">מקורות ואסמכתאות:</p>
+                      {result.data.applied_rules
+                        .filter(r => r.evaluation_result === 'eligible' || r.evaluation_result === 'requires_discretion')
+                        .map(r => (
+                          <div key={r.rule_id} className="bg-green-50 border border-green-200 rounded-lg p-3 text-sm">
+                            <div className="flex items-center gap-2 mb-1">
+                              <span className="text-green-700 font-medium">✅ עומד בתנאים</span>
+                            </div>
+                            <p className="text-xs text-gray-700">
+                              📄 {r.legal_citation.document_name}, סעיף {r.legal_citation.section}, פסקה {r.legal_citation.paragraph}
+                              {r.legal_citation.clause && `, סעיף קטן ${r.legal_citation.clause}`}
+                            </p>
+                          </div>
+                        ))}
+                      {result.data.applied_rules
+                        .filter(r => r.evaluation_result === 'not_eligible')
+                        .slice(0, 3)
+                        .map(r => (
+                          <div key={r.rule_id} className="bg-gray-50 border border-gray-200 rounded-lg p-3 text-sm">
+                            <div className="flex items-center gap-2 mb-1">
+                              <span className="text-gray-500 font-medium">❌ לא עומד בתנאים</span>
+                            </div>
+                            <p className="text-xs text-gray-500">
+                              📄 {r.legal_citation.document_name}, סעיף {r.legal_citation.section}, פסקה {r.legal_citation.paragraph}
+                              {r.legal_citation.clause && `, סעיף קטן ${r.legal_citation.clause}`}
+                            </p>
+                          </div>
+                        ))}
+                    </div>
+                  )}
+
                   {result.processing_time_ms !== undefined && (
                     <p className="text-xs text-gray-400">זמן עיבוד: {result.processing_time_ms} ms | {result.data?.applied_rules.length ?? 0} כללים נבדקו</p>
                   )}
-                  {result.data?.benefit_details && (
-                    <div className="bg-gray-50 rounded-lg p-3 text-sm">
-                      <span className="font-medium">סכום: </span>
-                      {result.data.benefit_details.amount} ₪
-                      {result.data.benefit_details.duration && ` / ${result.data.benefit_details.duration}`}
-                    </div>
-                  )}
+
+                  {/* Inline feedback — like/dislike + comment */}
+                  <InlineFeedback requestId={result.data?.request_id ?? ''} decision={result.data?.decision ?? ''} />
                 </>
               )}
             </div>
