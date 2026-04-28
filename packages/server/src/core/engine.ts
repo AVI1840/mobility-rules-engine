@@ -185,6 +185,11 @@ function determineDecision(
 export class RulesEngine {
   private domains: Map<string, DomainModule> = new Map();
   private startTime: number = Date.now();
+  /** Stores the full evaluation context from the last evaluate() call */
+  private _lastEvalContext: EvalContextInternal | null = null;
+
+  /** Returns the full evaluation context from the last evaluate() call. Used by the API handler to build real audit trails. */
+  get lastEvaluationContext(): EvalContextInternal | null { return this._lastEvalContext; }
 
   loadDomainModule(module: DomainModule): void {
     if (!module.domain_id || !Array.isArray(module.rules) || !Array.isArray(module.rule_versions)) {
@@ -340,6 +345,15 @@ export class RulesEngine {
 
     const processing_time_ms = Date.now() - processing_start;
 
+    // Store full evaluation context for audit trail
+    this._lastEvalContext = {
+      evaluations,
+      reasoningChain,
+      conflictRecords,
+      discretionaryFlags,
+      processingStart: processing_start,
+    };
+
     return {
       request_id,
       decision,
@@ -423,4 +437,16 @@ function collectVariableNames(
       collectVariableNames(op as { type: string; variable?: string; operands?: unknown[] }, names);
     }
   }
+}
+
+// ---------------------------------------------------------------------------
+// Internal evaluation context — exposed via lastEvaluationContext
+// ---------------------------------------------------------------------------
+
+export interface EvalContextInternal {
+  evaluations: RuleEvaluation[];
+  reasoningChain: ReasoningStep[];
+  conflictRecords: ConflictRecord[];
+  discretionaryFlags: DiscretionaryFlagRecord[];
+  processingStart: number;
 }

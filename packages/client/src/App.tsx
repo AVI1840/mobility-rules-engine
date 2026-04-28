@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import { MessageCircle, LayoutDashboard, Scale, Eye, BookOpen, Search, Zap, FileText, TestTube } from 'lucide-react';
+import { MessageCircle, LayoutDashboard, Scale, Eye, BookOpen, Search, Zap, FileText, TestTube, ClipboardCheck } from 'lucide-react';
 import { FeedbackModal } from '@/components/FeedbackModal';
 import { Dashboard } from '@/components/Dashboard';
 import { EligibilityForm } from '@/components/EligibilityForm';
@@ -9,9 +9,10 @@ import { VariableInspection } from '@/components/VariableInspection';
 import { EdgeCaseSimulation } from '@/components/EdgeCaseSimulation';
 import { SourceMaterials } from '@/components/SourceMaterials';
 import { QADashboard } from '@/components/QADashboard';
+import { ValidationWorkbench } from '@/components/ValidationWorkbench';
 import type { EvaluationResponse } from '@/types';
 
-type Tab = 'dashboard' | 'eligibility' | 'trace' | 'explanation' | 'variables' | 'edge-cases' | 'sources' | 'qa';
+type Tab = 'dashboard' | 'eligibility' | 'trace' | 'explanation' | 'variables' | 'edge-cases' | 'sources' | 'validation' | 'qa';
 
 export default function App() {
   const [activeTab, setActiveTab] = useState<Tab>('dashboard');
@@ -26,6 +27,7 @@ export default function App() {
     { id: 'variables' as Tab, label: 'בדיקת משתנים', icon: Search },
     { id: 'edge-cases' as Tab, label: 'סימולציית קצה', icon: Zap },
     { id: 'sources' as Tab, label: 'חומרי מקור', icon: FileText },
+    { id: 'validation' as Tab, label: 'ולידציה', icon: ClipboardCheck },
     { id: 'qa' as Tab, label: 'בדיקות QA', icon: TestTube },
   ];
 
@@ -74,6 +76,7 @@ export default function App() {
           {activeTab === 'variables' && <VariableInspection result={lastResult} />}
           {activeTab === 'edge-cases' && <EdgeCaseSimulation onResult={setLastResult} />}
           {activeTab === 'sources' && <SourceMaterials />}
+          {activeTab === 'validation' && <ValidationWorkbench />}
           {activeTab === 'qa' && <QADashboard />}
         </main>
       </div>

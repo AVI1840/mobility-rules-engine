@@ -1,0 +1,72 @@
+{
+  "_note": "SAMPLE DATA ONLY - synthetic cases for demonstration. Not real claims.",
+  "_status": "demo/sample",
+  "source_file": "sample-validation-cases.json",
+  "cases": [
+    {
+      "case_id": "SAMPLE-001",
+      "description": "שוהה במוסד עם 50% נכות - צפוי זכאי לחסר רכב",
+      "request": {
+        "claimant_id": "000000001",
+        "claim_date": "2024-06-01",
+        "claim_type": "vehicle_less_allowance",
+        "medical": { "disability_percentage": 50 },
+        "operational": { "institutional_residence_status": true }
+      },
+      "clerk_decision": "eligible",
+      "clerk_notes": "אושר לפי חוזר 1810"
+    },
+    {
+      "case_id": "SAMPLE-002",
+      "description": "שוהה במוסד עם 35% נכות - צפוי לא זכאי (מתחת לסף)",
+      "request": {
+        "claimant_id": "000000002",
+        "claim_date": "2024-06-01",
+        "claim_type": "vehicle_less_allowance",
+        "medical": { "disability_percentage": 35 },
+        "operational": { "institutional_residence_status": true }
+      },
+      "clerk_decision": "not_eligible",
+      "clerk_notes": "נדחה - אחוז נכות מתחת ל-40%"
+    },
+    {
+      "case_id": "SAMPLE-003",
+      "description": "בעל רישיון נהיגה עם 45% נכות - צפוי זכאי לקצבת ניידות",
+      "request": {
+        "claimant_id": "000000003",
+        "claim_date": "2024-06-01",
+        "claim_type": "mobility_allowance",
+        "medical": { "disability_percentage": 45 },
+        "operational": { "driver_license_holder": true }
+      },
+      "clerk_decision": "eligible",
+      "clerk_notes": "אושר לפי הסכם הניידות"
+    },
+    {
+      "case_id": "SAMPLE-004",
+      "description": "ללא רישיון וללא מורשה עם 60% נכות - צפוי לא זכאי לקצבת ניידות רגילה",
+      "request": {
+        "claimant_id": "000000004",
+        "claim_date": "2024-06-01",
+        "claim_type": "mobility_allowance",
+        "medical": { "disability_percentage": 60 },
+        "operational": { "driver_license_holder": false, "authorized_driver_status": false }
+      },
+      "clerk_decision": "not_eligible",
+      "clerk_notes": "נדחה - אין רישיון ואין מורשה נהיגה"
+    },
+    {
+      "case_id": "SAMPLE-005",
+      "description": "ערך גבולי - בדיוק 40% נכות עם מורשה נהיגה",
+      "request": {
+        "claimant_id": "000000005",
+        "claim_date": "2024-06-01",
+        "claim_type": "mobility_allowance",
+        "medical": { "disability_percentage": 40 },
+        "operational": { "authorized_driver_status": true }
+      },
+      "clerk_decision": "eligible",
+      "clerk_notes": "אושר - עומד בסף המינימלי"
+    }
+  ]
+}
