@@ -1,0 +1,58 @@
+{
+  "rule_id": "00000000-0000-0000-0000-000000000104",
+  "rule_name": "תוספת לקצבת ניידות - מרחק עבודה - סעיף 14 להסכם",
+  "source_document_id": "mobility-agreement-section-14",
+  "source_section": "הסכם הניידות - סעיף 14 - תוספת לקצבת ניידות",
+  "effective_date": "1977-06-01",
+  "expiry_date": null,
+  "priority": "statutory",
+  "conditions": {
+    "type": "AND",
+    "operands": [
+      { "type": "COMPARISON", "variable": "is_employed", "operator": "eq", "value": true },
+      { "type": "COMPARISON", "variable": "work_distance_km_round_trip", "operator": "gte", "value": 40 },
+      { "type": "COMPARISON", "variable": "continuous_employment_months", "operator": "gte", "value": 6 },
+      { "type": "COMPARISON", "variable": "uses_vehicle_for_work", "operator": "eq", "value": true }
+    ]
+  },
+  "actions": [
+    { "action_type": "determine_eligibility", "parameters": { "outcome": "eligible", "benefit_type": "allowance_supplement", "note": "זכאי לתוספת קצבת ניידות - מרחק עבודה 40 ק\"מ+ הלוך וחזור, עובד 6 חודשים ברציפות" } }
+  ],
+  "legal_citation": {
+    "document_name": "הסכם הניידות",
+    "section": "14",
+    "paragraph": "א",
+    "clause": null
+  },
+  "discretionary_flag": false,
+  "discretionary_reason": null,
+  "decision_tree": {
+    "node_id": "s14-root",
+    "node_type": "condition",
+    "condition": {
+      "type": "AND",
+      "operands": [
+        { "type": "COMPARISON", "variable": "is_employed", "operator": "eq", "value": true },
+        { "type": "COMPARISON", "variable": "work_distance_km_round_trip", "operator": "gte", "value": 40 },
+        { "type": "COMPARISON", "variable": "continuous_employment_months", "operator": "gte", "value": 6 },
+        { "type": "COMPARISON", "variable": "uses_vehicle_for_work", "operator": "eq", "value": true }
+      ]
+    },
+    "true_branch": {
+      "node_id": "s14-eligible",
+      "node_type": "leaf",
+      "outcome": "eligible",
+      "legal_citation": { "document_name": "הסכם הניידות", "section": "14", "paragraph": "א", "clause": null },
+      "depth": 1
+    },
+    "false_branch": {
+      "node_id": "s14-not-eligible",
+      "node_type": "leaf",
+      "outcome": "not_eligible",
+      "legal_citation": { "document_name": "הסכם הניידות", "section": "14", "paragraph": "א", "clause": null },
+      "depth": 1
+    },
+    "legal_citation": { "document_name": "הסכם הניידות", "section": "14", "paragraph": "א", "clause": null },
+    "depth": 0
+  }
+}

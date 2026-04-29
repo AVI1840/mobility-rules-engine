@@ -1,0 +1,54 @@
+{
+  "rule_id": "00000000-0000-0000-0000-000000000101",
+  "rule_name": "הלוואה עומדת לבעל רישיון נהיגה - סעיף 5(ב) להסכם",
+  "source_document_id": "mobility-agreement-section-5b",
+  "source_section": "הסכם הניידות - סעיף 5(ב) - הלוואה עומדת לבעל רישיון",
+  "effective_date": "1977-06-01",
+  "expiry_date": null,
+  "priority": "statutory",
+  "conditions": {
+    "type": "AND",
+    "operands": [
+      { "type": "COMPARISON", "variable": "driver_license_holder", "operator": "eq", "value": true },
+      { "type": "COMPARISON", "variable": "disability_percentage", "operator": "gte", "value": 40 }
+    ]
+  },
+  "actions": [
+    { "action_type": "determine_eligibility", "parameters": { "outcome": "eligible", "benefit_type": "standing_loan", "note": "זכאי להלוואה עומדת לרכישת רכב - בעל רישיון נהיגה עם 40% מוגבלות לפחות" } }
+  ],
+  "legal_citation": {
+    "document_name": "הסכם הניידות",
+    "section": "5",
+    "paragraph": "ב",
+    "clause": null
+  },
+  "discretionary_flag": false,
+  "discretionary_reason": null,
+  "decision_tree": {
+    "node_id": "s5b-root",
+    "node_type": "condition",
+    "condition": {
+      "type": "AND",
+      "operands": [
+        { "type": "COMPARISON", "variable": "driver_license_holder", "operator": "eq", "value": true },
+        { "type": "COMPARISON", "variable": "disability_percentage", "operator": "gte", "value": 40 }
+      ]
+    },
+    "true_branch": {
+      "node_id": "s5b-eligible",
+      "node_type": "leaf",
+      "outcome": "eligible",
+      "legal_citation": { "document_name": "הסכם הניידות", "section": "5", "paragraph": "ב", "clause": null },
+      "depth": 1
+    },
+    "false_branch": {
+      "node_id": "s5b-not-eligible",
+      "node_type": "leaf",
+      "outcome": "not_eligible",
+      "legal_citation": { "document_name": "הסכם הניידות", "section": "5", "paragraph": "ב", "clause": null },
+      "depth": 1
+    },
+    "legal_citation": { "document_name": "הסכם הניידות", "section": "5", "paragraph": "ב", "clause": null },
+    "depth": 0
+  }
+}

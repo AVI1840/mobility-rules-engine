@@ -1,0 +1,54 @@
+{
+  "rule_id": "00000000-0000-0000-0000-000000000103",
+  "rule_name": "אי תחולה - נכה לפי חוקים אחרים - סעיף 4 להסכם",
+  "source_document_id": "mobility-agreement-section-4",
+  "source_section": "הסכם הניידות - סעיף 4 - אי תחולה",
+  "effective_date": "1977-06-01",
+  "expiry_date": null,
+  "priority": "statutory",
+  "conditions": {
+    "type": "AND",
+    "operands": [
+      { "type": "COMPARISON", "variable": "is_disabled_under_other_law", "operator": "eq", "value": true },
+      { "type": "COMPARISON", "variable": "has_other_mobility_arrangement", "operator": "eq", "value": true }
+    ]
+  },
+  "actions": [
+    { "action_type": "determine_eligibility", "parameters": { "outcome": "not_eligible", "benefit_type": "non_applicability", "note": "לא זכאי - נכה לפי חוק אחר עם הסדר קיים (סעיף 4 להסכם)" } }
+  ],
+  "legal_citation": {
+    "document_name": "הסכם הניידות",
+    "section": "4",
+    "paragraph": "א",
+    "clause": null
+  },
+  "discretionary_flag": false,
+  "discretionary_reason": null,
+  "decision_tree": {
+    "node_id": "s4-root",
+    "node_type": "condition",
+    "condition": {
+      "type": "AND",
+      "operands": [
+        { "type": "COMPARISON", "variable": "is_disabled_under_other_law", "operator": "eq", "value": true },
+        { "type": "COMPARISON", "variable": "has_other_mobility_arrangement", "operator": "eq", "value": true }
+      ]
+    },
+    "true_branch": {
+      "node_id": "s4-blocked",
+      "node_type": "leaf",
+      "outcome": "not_eligible",
+      "legal_citation": { "document_name": "הסכם הניידות", "section": "4", "paragraph": "א", "clause": null },
+      "depth": 1
+    },
+    "false_branch": {
+      "node_id": "s4-not-blocked",
+      "node_type": "leaf",
+      "outcome": "eligible",
+      "legal_citation": { "document_name": "הסכם הניידות", "section": "4", "paragraph": "א", "clause": null },
+      "depth": 1
+    },
+    "legal_citation": { "document_name": "הסכם הניידות", "section": "4", "paragraph": "א", "clause": null },
+    "depth": 0
+  }
+}

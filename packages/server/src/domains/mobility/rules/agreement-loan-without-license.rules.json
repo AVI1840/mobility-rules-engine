@@ -1,0 +1,58 @@
+{
+  "rule_id": "00000000-0000-0000-0000-000000000102",
+  "rule_name": "הלוואה עומדת ללא רישיון נהיגה - סעיף 5(ג) להסכם",
+  "source_document_id": "mobility-agreement-section-5c",
+  "source_section": "הסכם הניידות - סעיף 5(ג) - הלוואה עומדת ללא רישיון",
+  "effective_date": "1977-06-01",
+  "expiry_date": null,
+  "priority": "statutory",
+  "conditions": {
+    "type": "AND",
+    "operands": [
+      { "type": "NOT", "operands": [{ "type": "COMPARISON", "variable": "driver_license_holder", "operator": "eq", "value": true }] },
+      { "type": "COMPARISON", "variable": "disability_percentage", "operator": "gte", "value": 60 },
+      { "type": "COMPARISON", "variable": "has_daily_transport_needs", "operator": "eq", "value": true },
+      { "type": "COMPARISON", "variable": "authorized_driver_status", "operator": "eq", "value": true }
+    ]
+  },
+  "actions": [
+    { "action_type": "determine_eligibility", "parameters": { "outcome": "eligible", "benefit_type": "standing_loan", "note": "זכאי להלוואה עומדת - ללא רישיון, 60%+ מוגבלות, צרכים יום-יומיים, יש מורשה נהיגה" } }
+  ],
+  "legal_citation": {
+    "document_name": "הסכם הניידות",
+    "section": "5",
+    "paragraph": "ג",
+    "clause": null
+  },
+  "discretionary_flag": false,
+  "discretionary_reason": null,
+  "decision_tree": {
+    "node_id": "s5c-root",
+    "node_type": "condition",
+    "condition": {
+      "type": "AND",
+      "operands": [
+        { "type": "NOT", "operands": [{ "type": "COMPARISON", "variable": "driver_license_holder", "operator": "eq", "value": true }] },
+        { "type": "COMPARISON", "variable": "disability_percentage", "operator": "gte", "value": 60 },
+        { "type": "COMPARISON", "variable": "has_daily_transport_needs", "operator": "eq", "value": true },
+        { "type": "COMPARISON", "variable": "authorized_driver_status", "operator": "eq", "value": true }
+      ]
+    },
+    "true_branch": {
+      "node_id": "s5c-eligible",
+      "node_type": "leaf",
+      "outcome": "eligible",
+      "legal_citation": { "document_name": "הסכם הניידות", "section": "5", "paragraph": "ג", "clause": null },
+      "depth": 1
+    },
+    "false_branch": {
+      "node_id": "s5c-not-eligible",
+      "node_type": "leaf",
+      "outcome": "not_eligible",
+      "legal_citation": { "document_name": "הסכם הניידות", "section": "5", "paragraph": "ג", "clause": null },
+      "depth": 1
+    },
+    "legal_citation": { "document_name": "הסכם הניידות", "section": "5", "paragraph": "ג", "clause": null },
+    "depth": 0
+  }
+}

@@ -35,6 +35,11 @@ const RULE_FILES = [
   // Core eligibility
   'vehicle-less-allowance.rules.json',
   'basic-mobility-allowance.rules.json',
+  // Agreement-based rules (הסכם הניידות)
+  'agreement-loan-with-license.rules.json',
+  'agreement-loan-without-license.rules.json',
+  'agreement-non-applicability.rules.json',
+  'agreement-allowance-supplement.rules.json',
   // Circulars
   'circular-2056-engine-volume.rules.json',
   'circular-1996-amendment24.rules.json',
