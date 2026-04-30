@@ -49,8 +49,37 @@ export interface EvaluationRequest {
   claimant_id: string;
   claim_date: string;
   claim_type: ClaimType;
-  medical?: { disability_percentage?: number; mobility_limitation_type?: string };
-  operational?: { institutional_residence_status?: boolean; driver_license_holder?: boolean; authorized_driver_status?: boolean };
-  vehicle?: { engine_volume?: number; qualifying_vehicle?: boolean };
-  demographic?: { age?: number };
+  medical?: {
+    disability_percentage?: number;
+    mobility_limitation_type?: string;
+    wheelchair_user?: boolean;
+    permanently_wheelchair_bound?: boolean;
+  };
+  operational?: {
+    institutional_residence_status?: boolean;
+    driver_license_holder?: boolean;
+    authorized_driver_status?: boolean;
+    is_disabled_under_other_law?: boolean;
+    receives_sharm?: boolean;
+    receives_yeled_nake?: boolean;
+    months_since_last_loan?: number;
+    months_hospitalized?: number;
+    months_abroad?: number;
+    months_imprisoned?: number;
+  };
+  vehicle?: {
+    engine_volume?: number;
+    qualifying_vehicle?: boolean;
+    has_vehicle?: boolean;
+    special_equipment_vehicle?: boolean;
+  };
+  demographic?: {
+    age?: number;
+  };
+  employment?: {
+    is_earner?: boolean;
+    work_distance_km_round_trip?: number;
+    consecutive_months_employed?: number;
+    earned_income_months_of_24?: number;
+  };
 }
