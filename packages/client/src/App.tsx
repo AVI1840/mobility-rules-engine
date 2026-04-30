@@ -44,7 +44,7 @@ export default function App() {
           </div>
         </div>
         <div className="flex items-center gap-3">
-          <span className="text-xs bg-green-500/20 text-green-200 px-2 py-1 rounded font-medium">24+ כללים | 3 מקורות ראשיים</span>
+          <span className="text-xs bg-green-500/20 text-green-200 px-2 py-1 rounded font-medium">32 כללים | 3 מקורות ראשיים</span>
           <span className="text-xs bg-white/15 px-2 py-1 rounded">פיילוט v1.0</span>
         </div>
       </header>

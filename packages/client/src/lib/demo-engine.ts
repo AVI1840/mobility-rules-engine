@@ -172,6 +172,55 @@ const RULES: Array<{
     priority: 'statutory',
     evaluate: (r) => r.operational?.driver_license_holder === true && (r.medical?.disability_percentage ?? 0) === 100 ? 'requires_discretion' : 'not_eligible',
   },
+  // === כללים מהתדריך (תדריך ניידות) ===
+  {
+    id: 'guide-earner-no-vehicle', name: 'חסר רכב - משתכר (תדריך)',
+    doc: 'תדריך ניידות', section: 'קצבת חסר רכב', par: 'תנאי 1', clause: 'משתכר',
+    priority: 'statutory',
+    evaluate: (r) => (r.demographic?.age ?? 0) >= 18 && (r.medical?.disability_percentage ?? 0) >= 80 ? 'eligible' : 'not_eligible',
+  },
+  {
+    id: 'guide-institutionalized', name: 'חסר רכב - שוהה במוסד (תדריך)',
+    doc: 'תדריך ניידות', section: 'קצבת חסר רכב', par: 'תנאי 4', clause: 'שוהה במוסד',
+    priority: 'statutory',
+    evaluate: (r) => r.operational?.institutional_residence_status === true && ((r.medical?.disability_percentage ?? 0) >= 100 || (r.medical?.disability_percentage ?? 0) >= 80) ? 'eligible' : 'not_eligible',
+  },
+  {
+    id: 'guide-duplicate-sharm', name: 'כפל גמלה - שר"מ (תדריך)',
+    doc: 'תדריך ניידות', section: 'כפל גמלה', par: 'שר"מ', clause: null,
+    priority: 'statutory',
+    evaluate: () => 'requires_discretion', // Requires choice between benefits
+  },
+  {
+    id: 'guide-duplicate-yeled', name: 'כפל גמלה - ילד נכה (תדריך)',
+    doc: 'תדריך ניידות', section: 'כפל גמלה', par: 'ילד נכה', clause: null,
+    priority: 'statutory',
+    evaluate: () => 'requires_discretion', // Requires check for cancellation conditions
+  },
+  {
+    id: 'guide-replacement-timing', name: 'תזמון החלפת רכב (תדריך)',
+    doc: 'תדריך ניידות', section: 'החלפת רכב', par: 'תזמון', clause: 'סעיף 11',
+    priority: 'statutory',
+    evaluate: () => 'not_eligible', // Requires months_since_last_loan
+  },
+  {
+    id: 'guide-loan-no-license', name: 'הלוואה עומדת - חסר רישיון (תדריך)',
+    doc: 'תדריך ניידות', section: 'הלוואה עומדת', par: 'חסר רישיון', clause: null,
+    priority: 'statutory',
+    evaluate: (r) => r.operational?.driver_license_holder !== true && (r.medical?.disability_percentage ?? 0) >= 60 && r.operational?.authorized_driver_status === true ? 'eligible' : 'not_eligible',
+  },
+  {
+    id: 'guide-s9a-special', name: 'סעיף 9א(א) - רכב 2000 סמ"ק (תדריך)',
+    doc: 'תדריך ניידות + הסכם הניידות', section: '9א(א)', par: 'מקרה מיוחד', clause: null,
+    priority: 'statutory',
+    evaluate: (r) => r.operational?.driver_license_holder === true && (r.medical?.disability_percentage ?? 0) === 100 ? 'requires_discretion' : 'not_eligible',
+  },
+  {
+    id: 'guide-work-supplement', name: 'תוספת קצבה - מרחק עבודה (תדריך)',
+    doc: 'תדריך ניידות', section: 'תוספת קצבה', par: 'מרחק עבודה', clause: '40 ק"מ הלוך-חזור',
+    priority: 'statutory',
+    evaluate: () => 'not_eligible', // Requires work_distance_km_round_trip
+  },
 ];
 
 export function demoEvaluate(request: EvaluationRequest): EvaluationResponse {

@@ -1,0 +1,107 @@
+{
+  "rule_id": "00000000-0000-0000-0000-000000000218",
+  "rule_name": "תוספת קצבה - מרחק עבודה (מפורט)",
+  "source_document_id": "mobility-guide-work-distance-supplement",
+  "source_section": "תדריך ניידות - תוספת קצבה - מרחק עבודה",
+  "effective_date": "2024-01-01",
+  "expiry_date": null,
+  "priority": "statutory",
+  "conditions": {
+    "type": "AND",
+    "operands": [
+      { "type": "COMPARISON", "variable": "is_earner_above_25pct_avg_wage", "operator": "eq", "value": true },
+      { "type": "COMPARISON", "variable": "has_vehicle", "operator": "eq", "value": true },
+      { "type": "COMPARISON", "variable": "consecutive_months_employed", "operator": "gte", "value": 6 },
+      { "type": "COMPARISON", "variable": "work_distance_km_round_trip", "operator": "gt", "value": 40 }
+    ]
+  },
+  "actions": [
+    {
+      "action_type": "determine_eligibility",
+      "parameters": {
+        "outcome": "eligible",
+        "benefit_type": "mobility_allowance_supplement",
+        "note": "זכאי לתוספת קצבת ניידות - משתכר מעל 25% מהשכר הממוצע, בעל רכב, עובד 6 חודשים רצופים לפחות, מרחק הלוך-חזור לעבודה מעל 40 ק\"מ"
+      }
+    }
+  ],
+  "legal_citation": {
+    "document_name": "תדריך ניידות",
+    "section": "תוספת קצבה",
+    "paragraph": "מרחק עבודה",
+    "clause": null
+  },
+  "discretionary_flag": false,
+  "discretionary_reason": null,
+  "decision_tree": {
+    "node_id": "gwds-root",
+    "node_type": "condition",
+    "condition": {
+      "type": "COMPARISON", "variable": "is_earner_above_25pct_avg_wage", "operator": "eq", "value": true
+    },
+    "true_branch": {
+      "node_id": "gwds-check-vehicle",
+      "node_type": "condition",
+      "condition": {
+        "type": "COMPARISON", "variable": "has_vehicle", "operator": "eq", "value": true
+      },
+      "true_branch": {
+        "node_id": "gwds-check-months",
+        "node_type": "condition",
+        "condition": {
+          "type": "COMPARISON", "variable": "consecutive_months_employed", "operator": "gte", "value": 6
+        },
+        "true_branch": {
+          "node_id": "gwds-check-distance",
+          "node_type": "condition",
+          "condition": {
+            "type": "COMPARISON", "variable": "work_distance_km_round_trip", "operator": "gt", "value": 40
+          },
+          "true_branch": {
+            "node_id": "gwds-eligible",
+            "node_type": "leaf",
+            "outcome": "eligible",
+            "legal_citation": { "document_name": "תדריך ניידות", "section": "תוספת קצבה", "paragraph": "מרחק עבודה", "clause": "כל התנאים מתקיימים - זכאי לתוספת" },
+            "depth": 4
+          },
+          "false_branch": {
+            "node_id": "gwds-short-distance",
+            "node_type": "leaf",
+            "outcome": "not_eligible",
+            "legal_citation": { "document_name": "תדריך ניידות", "section": "תוספת קצבה", "paragraph": "מרחק עבודה", "clause": "מרחק הלוך-חזור 40 ק\"מ או פחות" },
+            "depth": 4
+          },
+          "legal_citation": { "document_name": "תדריך ניידות", "section": "תוספת קצבה", "paragraph": "מרחק עבודה", "clause": "בדיקת מרחק" },
+          "depth": 3
+        },
+        "false_branch": {
+          "node_id": "gwds-short-employment",
+          "node_type": "leaf",
+          "outcome": "not_eligible",
+          "legal_citation": { "document_name": "תדריך ניידות", "section": "תוספת קצבה", "paragraph": "מרחק עבודה", "clause": "פחות מ-6 חודשי עבודה רצופים" },
+          "depth": 3
+        },
+        "legal_citation": { "document_name": "תדריך ניידות", "section": "תוספת קצבה", "paragraph": "מרחק עבודה", "clause": "בדיקת תקופת עבודה" },
+        "depth": 2
+      },
+      "false_branch": {
+        "node_id": "gwds-no-vehicle",
+        "node_type": "leaf",
+        "outcome": "not_eligible",
+        "legal_citation": { "document_name": "תדריך ניידות", "section": "תוספת קצבה", "paragraph": "מרחק עבודה", "clause": "אין רכב ברשותו" },
+        "depth": 2
+      },
+      "legal_citation": { "document_name": "תדריך ניידות", "section": "תוספת קצבה", "paragraph": "מרחק עבודה", "clause": "בדיקת בעלות רכב" },
+      "depth": 1
+    },
+    "false_branch": {
+      "node_id": "gwds-not-earner",
+      "node_type": "leaf",
+      "outcome": "not_eligible",
+      "legal_citation": { "document_name": "תדריך ניידות", "section": "תוספת קצבה", "paragraph": "מרחק עבודה", "clause": "הכנסה מתחת ל-25% מהשכר הממוצע" },
+      "depth": 1
+    },
+    "legal_citation": { "document_name": "תדריך ניידות", "section": "תוספת קצבה", "paragraph": "מרחק עבודה", "clause": null },
+    "depth": 0
+  }
+}

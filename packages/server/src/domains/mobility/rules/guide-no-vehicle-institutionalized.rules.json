@@ -1,0 +1,198 @@
+{
+  "rule_id": "00000000-0000-0000-0000-000000000212",
+  "rule_name": "חסר רכב - שוהה במוסד",
+  "source_document_id": "mobility-guide-vehicle-less-institutionalized",
+  "source_section": "תדריך ניידות - קצבת חסר רכב - תנאי 4 - שוהה במוסד",
+  "effective_date": "2024-01-01",
+  "expiry_date": null,
+  "priority": "statutory",
+  "conditions": {
+    "type": "AND",
+    "operands": [
+      { "type": "COMPARISON", "variable": "is_institutionalized", "operator": "eq", "value": true },
+      { "type": "NOT", "operands": [{ "type": "COMPARISON", "variable": "sharm_cancelled_due_to_hospitalization", "operator": "eq", "value": true }] },
+      { "type": "NOT", "operands": [{ "type": "COMPARISON", "variable": "yeled_nake_cancelled_due_to_hospitalization", "operator": "eq", "value": true }] },
+      {
+        "type": "OR",
+        "operands": [
+          {
+            "type": "AND",
+            "operands": [
+              { "type": "COMPARISON", "variable": "age", "operator": "lt", "value": 18 },
+              {
+                "type": "OR",
+                "operands": [
+                  { "type": "COMPARISON", "variable": "disability_percentage", "operator": "gte", "value": 80 },
+                  { "type": "COMPARISON", "variable": "wheelchair_user", "operator": "eq", "value": true }
+                ]
+              }
+            ]
+          },
+          {
+            "type": "AND",
+            "operands": [
+              { "type": "COMPARISON", "variable": "age", "operator": "gte", "value": 18 },
+              {
+                "type": "OR",
+                "operands": [
+                  { "type": "COMPARISON", "variable": "disability_percentage", "operator": "eq", "value": 100 },
+                  { "type": "COMPARISON", "variable": "wheelchair_user", "operator": "eq", "value": true }
+                ]
+              }
+            ]
+          }
+        ]
+      },
+      { "type": "COMPARISON", "variable": "monthly_motor_vehicle_exits", "operator": "gte", "value": 6 }
+    ]
+  },
+  "actions": [
+    {
+      "action_type": "determine_eligibility",
+      "parameters": {
+        "outcome": "eligible",
+        "benefit_type": "vehicle_less_allowance",
+        "note": "זכאי לקצבת חסר רכב - שוהה במוסד, יוצא ברכב מנועי 6 פעמים בחודש לפחות. מתחת ל-18: 80% מוגבלות או כיסא גלגלים. מעל 18: 100% מוגבלות או כיסא גלגלים"
+      }
+    }
+  ],
+  "legal_citation": {
+    "document_name": "תדריך ניידות",
+    "section": "קצבת חסר רכב",
+    "paragraph": "תנאי 4",
+    "clause": "שוהה במוסד"
+  },
+  "discretionary_flag": false,
+  "discretionary_reason": null,
+  "decision_tree": {
+    "node_id": "gnvi-root",
+    "node_type": "condition",
+    "condition": {
+      "type": "COMPARISON", "variable": "is_institutionalized", "operator": "eq", "value": true
+    },
+    "true_branch": {
+      "node_id": "gnvi-check-sharm",
+      "node_type": "condition",
+      "condition": {
+        "type": "AND",
+        "operands": [
+          { "type": "NOT", "operands": [{ "type": "COMPARISON", "variable": "sharm_cancelled_due_to_hospitalization", "operator": "eq", "value": true }] },
+          { "type": "NOT", "operands": [{ "type": "COMPARISON", "variable": "yeled_nake_cancelled_due_to_hospitalization", "operator": "eq", "value": true }] }
+        ]
+      },
+      "true_branch": {
+        "node_id": "gnvi-check-age",
+        "node_type": "condition",
+        "condition": {
+          "type": "COMPARISON", "variable": "age", "operator": "lt", "value": 18
+        },
+        "true_branch": {
+          "node_id": "gnvi-under18-check",
+          "node_type": "condition",
+          "condition": {
+            "type": "OR",
+            "operands": [
+              { "type": "COMPARISON", "variable": "disability_percentage", "operator": "gte", "value": 80 },
+              { "type": "COMPARISON", "variable": "wheelchair_user", "operator": "eq", "value": true }
+            ]
+          },
+          "true_branch": {
+            "node_id": "gnvi-under18-exits",
+            "node_type": "condition",
+            "condition": {
+              "type": "COMPARISON", "variable": "monthly_motor_vehicle_exits", "operator": "gte", "value": 6
+            },
+            "true_branch": {
+              "node_id": "gnvi-under18-eligible",
+              "node_type": "leaf",
+              "outcome": "eligible",
+              "legal_citation": { "document_name": "תדריך ניידות", "section": "קצבת חסר רכב", "paragraph": "תנאי 4", "clause": "מתחת ל-18, 80% מוגבלות או כיסא גלגלים, 6 יציאות בחודש" },
+              "depth": 5
+            },
+            "false_branch": {
+              "node_id": "gnvi-under18-few-exits",
+              "node_type": "leaf",
+              "outcome": "not_eligible",
+              "legal_citation": { "document_name": "תדריך ניידות", "section": "קצבת חסר רכב", "paragraph": "תנאי 4", "clause": "פחות מ-6 יציאות ברכב מנועי בחודש" },
+              "depth": 5
+            },
+            "legal_citation": { "document_name": "תדריך ניידות", "section": "קצבת חסר רכב", "paragraph": "תנאי 4", "clause": "בדיקת יציאות" },
+            "depth": 4
+          },
+          "false_branch": {
+            "node_id": "gnvi-under18-low-mobility",
+            "node_type": "leaf",
+            "outcome": "not_eligible",
+            "legal_citation": { "document_name": "תדריך ניידות", "section": "קצבת חסר רכב", "paragraph": "תנאי 4", "clause": "מתחת ל-18 - מוגבלות מתחת ל-80% וללא כיסא גלגלים" },
+            "depth": 4
+          },
+          "legal_citation": { "document_name": "תדריך ניידות", "section": "קצבת חסר רכב", "paragraph": "תנאי 4", "clause": "מתחת ל-18 - בדיקת מוגבלות" },
+          "depth": 3
+        },
+        "false_branch": {
+          "node_id": "gnvi-over18-check",
+          "node_type": "condition",
+          "condition": {
+            "type": "OR",
+            "operands": [
+              { "type": "COMPARISON", "variable": "disability_percentage", "operator": "eq", "value": 100 },
+              { "type": "COMPARISON", "variable": "wheelchair_user", "operator": "eq", "value": true }
+            ]
+          },
+          "true_branch": {
+            "node_id": "gnvi-over18-exits",
+            "node_type": "condition",
+            "condition": {
+              "type": "COMPARISON", "variable": "monthly_motor_vehicle_exits", "operator": "gte", "value": 6
+            },
+            "true_branch": {
+              "node_id": "gnvi-over18-eligible",
+              "node_type": "leaf",
+              "outcome": "eligible",
+              "legal_citation": { "document_name": "תדריך ניידות", "section": "קצבת חסר רכב", "paragraph": "תנאי 4", "clause": "מעל 18, 100% מוגבלות או כיסא גלגלים, 6 יציאות בחודש" },
+              "depth": 5
+            },
+            "false_branch": {
+              "node_id": "gnvi-over18-few-exits",
+              "node_type": "leaf",
+              "outcome": "not_eligible",
+              "legal_citation": { "document_name": "תדריך ניידות", "section": "קצבת חסר רכב", "paragraph": "תנאי 4", "clause": "פחות מ-6 יציאות ברכב מנועי בחודש" },
+              "depth": 5
+            },
+            "legal_citation": { "document_name": "תדריך ניידות", "section": "קצבת חסר רכב", "paragraph": "תנאי 4", "clause": "בדיקת יציאות" },
+            "depth": 4
+          },
+          "false_branch": {
+            "node_id": "gnvi-over18-low-mobility",
+            "node_type": "leaf",
+            "outcome": "not_eligible",
+            "legal_citation": { "document_name": "תדריך ניידות", "section": "קצבת חסר רכב", "paragraph": "תנאי 4", "clause": "מעל 18 - מוגבלות מתחת ל-100% וללא כיסא גלגלים" },
+            "depth": 4
+          },
+          "legal_citation": { "document_name": "תדריך ניידות", "section": "קצבת חסר רכב", "paragraph": "תנאי 4", "clause": "מעל 18 - בדיקת מוגבלות" },
+          "depth": 3
+        },
+        "legal_citation": { "document_name": "תדריך ניידות", "section": "קצבת חסר רכב", "paragraph": "תנאי 4", "clause": "בדיקת גיל" },
+        "depth": 2
+      },
+      "false_branch": {
+        "node_id": "gnvi-benefit-cancelled",
+        "node_type": "leaf",
+        "outcome": "not_eligible",
+        "legal_citation": { "document_name": "תדריך ניידות", "section": "קצבת חסר רכב", "paragraph": "תנאי 4", "clause": "שר\"מ או ילד נכה בוטלו עקב אשפוז" },
+        "depth": 2
+      },
+      "legal_citation": { "document_name": "תדריך ניידות", "section": "קצבת חסר רכב", "paragraph": "תנאי 4", "clause": "בדיקת ביטול גמלאות" },
+      "depth": 1
+    },
+    "false_branch": {
+      "node_id": "gnvi-not-institutionalized",
+      "node_type": "leaf",
+      "outcome": "not_eligible",
+      "legal_citation": { "document_name": "תדריך ניידות", "section": "קצבת חסר רכב", "paragraph": "תנאי 4", "clause": "לא שוהה במוסד" },
+      "depth": 1
+    },
+    "legal_citation": { "document_name": "תדריך ניידות", "section": "קצבת חסר רכב", "paragraph": "תנאי 4", "clause": null },
+    "depth": 0
+  }
+}

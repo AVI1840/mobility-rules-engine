@@ -1,0 +1,93 @@
+{
+  "rule_id": "00000000-0000-0000-0000-000000000216",
+  "rule_name": "הלוואה עומדת - חסר רישיון נהיגה",
+  "source_document_id": "mobility-guide-loan-no-license",
+  "source_section": "תדריך ניידות - הלוואה עומדת - חסר רישיון",
+  "effective_date": "2024-01-01",
+  "expiry_date": null,
+  "priority": "statutory",
+  "conditions": {
+    "type": "AND",
+    "operands": [
+      { "type": "NOT", "operands": [{ "type": "COMPARISON", "variable": "driver_license_holder", "operator": "eq", "value": true }] },
+      { "type": "COMPARISON", "variable": "disability_percentage", "operator": "gte", "value": 60 }
+    ]
+  },
+  "actions": [
+    {
+      "action_type": "calculate_amount",
+      "parameters": {
+        "calculation_type": "loan_rate",
+        "note": "שיעור הלוואה לחסר רישיון: 40-79% מוגבלות = אחוז המוגבלות × 75%. 80-100% מוגבלות = 75%. רכב עד 1300 סמ\"ק. החלפה כל 48 חודשים",
+        "rules": [
+          { "condition": "disability 80-100", "rate": "75%", "vehicle_max_cc": 1300, "replacement_months": 48 },
+          { "condition": "disability 60-79", "rate": "disability_percentage × 75%", "vehicle_max_cc": 1300, "replacement_months": 48 }
+        ]
+      }
+    }
+  ],
+  "legal_citation": {
+    "document_name": "תדריך ניידות",
+    "section": "הלוואה עומדת",
+    "paragraph": "חסר רישיון",
+    "clause": null
+  },
+  "discretionary_flag": false,
+  "discretionary_reason": null,
+  "decision_tree": {
+    "node_id": "glrnl-root",
+    "node_type": "condition",
+    "condition": {
+      "type": "NOT",
+      "operands": [{ "type": "COMPARISON", "variable": "driver_license_holder", "operator": "eq", "value": true }]
+    },
+    "true_branch": {
+      "node_id": "glrnl-check-80",
+      "node_type": "condition",
+      "condition": {
+        "type": "COMPARISON", "variable": "disability_percentage", "operator": "gte", "value": 80
+      },
+      "true_branch": {
+        "node_id": "glrnl-75pct",
+        "node_type": "leaf",
+        "outcome": "eligible",
+        "legal_citation": { "document_name": "תדריך ניידות", "section": "הלוואה עומדת", "paragraph": "חסר רישיון", "clause": "80-100% מוגבלות - שיעור הלוואה 75%, רכב עד 1300 סמ\"ק, החלפה כל 48 חודשים" },
+        "depth": 2
+      },
+      "false_branch": {
+        "node_id": "glrnl-check-60",
+        "node_type": "condition",
+        "condition": {
+          "type": "COMPARISON", "variable": "disability_percentage", "operator": "gte", "value": 60
+        },
+        "true_branch": {
+          "node_id": "glrnl-proportional",
+          "node_type": "leaf",
+          "outcome": "eligible",
+          "legal_citation": { "document_name": "תדריך ניידות", "section": "הלוואה עומדת", "paragraph": "חסר רישיון", "clause": "60-79% מוגבלות - שיעור הלוואה = אחוז מוגבלות × 75%, רכב עד 1300 סמ\"ק, החלפה כל 48 חודשים" },
+          "depth": 3
+        },
+        "false_branch": {
+          "node_id": "glrnl-below-60",
+          "node_type": "leaf",
+          "outcome": "not_eligible",
+          "legal_citation": { "document_name": "תדריך ניידות", "section": "הלוואה עומדת", "paragraph": "חסר רישיון", "clause": "מוגבלות מתחת ל-60% - לא זכאי להלוואה ללא רישיון" },
+          "depth": 3
+        },
+        "legal_citation": { "document_name": "תדריך ניידות", "section": "הלוואה עומדת", "paragraph": "חסר רישיון", "clause": "בדיקת 60% מוגבלות" },
+        "depth": 2
+      },
+      "legal_citation": { "document_name": "תדריך ניידות", "section": "הלוואה עומדת", "paragraph": "חסר רישיון", "clause": "בדיקת אחוז מוגבלות" },
+      "depth": 1
+    },
+    "false_branch": {
+      "node_id": "glrnl-has-license",
+      "node_type": "leaf",
+      "outcome": "not_applicable",
+      "legal_citation": { "document_name": "תדריך ניידות", "section": "הלוואה עומדת", "paragraph": "חסר רישיון", "clause": "בעל רישיון - כלל זה לא חל" },
+      "depth": 1
+    },
+    "legal_citation": { "document_name": "תדריך ניידות", "section": "הלוואה עומדת", "paragraph": "חסר רישיון", "clause": null },
+    "depth": 0
+  }
+}

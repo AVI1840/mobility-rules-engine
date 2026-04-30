@@ -1,0 +1,121 @@
+{
+  "rule_id": "00000000-0000-0000-0000-000000000215",
+  "rule_name": "תזמון החלפת רכב",
+  "source_document_id": "mobility-guide-vehicle-replacement-timing",
+  "source_section": "תדריך ניידות + הסכם הניידות סעיף 11 - תזמון החלפת רכב",
+  "effective_date": "2024-01-01",
+  "expiry_date": null,
+  "priority": "statutory",
+  "conditions": {
+    "type": "AND",
+    "operands": [
+      { "type": "EXISTS", "variable": "months_since_last_loan" },
+      { "type": "COMPARISON", "variable": "has_vehicle", "operator": "eq", "value": true }
+    ]
+  },
+  "actions": [
+    {
+      "action_type": "determine_eligibility",
+      "parameters": {
+        "outcome": "eligible",
+        "benefit_type": "vehicle_replacement",
+        "note": "תזמון החלפת רכב: בעל רישיון - 42 חודשים, ללא רישיון - 48 חודשים, רכב ציוד מיוחד - 60 חודשים"
+      }
+    }
+  ],
+  "legal_citation": {
+    "document_name": "תדריך ניידות",
+    "section": "החלפת רכב",
+    "paragraph": "תזמון",
+    "clause": "הסכם הניידות סעיף 11"
+  },
+  "discretionary_flag": false,
+  "discretionary_reason": null,
+  "decision_tree": {
+    "node_id": "gvrt-root",
+    "node_type": "condition",
+    "condition": {
+      "type": "COMPARISON", "variable": "special_equipment_vehicle", "operator": "eq", "value": true
+    },
+    "true_branch": {
+      "node_id": "gvrt-special-check",
+      "node_type": "condition",
+      "condition": {
+        "type": "COMPARISON", "variable": "months_since_last_loan", "operator": "gte", "value": 60
+      },
+      "true_branch": {
+        "node_id": "gvrt-special-eligible",
+        "node_type": "leaf",
+        "outcome": "eligible",
+        "legal_citation": { "document_name": "תדריך ניידות", "section": "החלפת רכב", "paragraph": "תזמון", "clause": "רכב ציוד מיוחד - 60 חודשים" },
+        "depth": 2
+      },
+      "false_branch": {
+        "node_id": "gvrt-special-too-early",
+        "node_type": "leaf",
+        "outcome": "not_eligible",
+        "legal_citation": { "document_name": "תדריך ניידות", "section": "החלפת רכב", "paragraph": "תזמון", "clause": "רכב ציוד מיוחד - טרם חלפו 60 חודשים" },
+        "depth": 2
+      },
+      "legal_citation": { "document_name": "תדריך ניידות", "section": "החלפת רכב", "paragraph": "תזמון", "clause": "רכב ציוד מיוחד" },
+      "depth": 1
+    },
+    "false_branch": {
+      "node_id": "gvrt-check-license",
+      "node_type": "condition",
+      "condition": {
+        "type": "COMPARISON", "variable": "driver_license_holder", "operator": "eq", "value": true
+      },
+      "true_branch": {
+        "node_id": "gvrt-license-check",
+        "node_type": "condition",
+        "condition": {
+          "type": "COMPARISON", "variable": "months_since_last_loan", "operator": "gte", "value": 42
+        },
+        "true_branch": {
+          "node_id": "gvrt-license-eligible",
+          "node_type": "leaf",
+          "outcome": "eligible",
+          "legal_citation": { "document_name": "הסכם הניידות", "section": "11", "paragraph": "א", "clause": "בעל רישיון - 42 חודשים" },
+          "depth": 3
+        },
+        "false_branch": {
+          "node_id": "gvrt-license-too-early",
+          "node_type": "leaf",
+          "outcome": "not_eligible",
+          "legal_citation": { "document_name": "הסכם הניידות", "section": "11", "paragraph": "א", "clause": "בעל רישיון - טרם חלפו 42 חודשים" },
+          "depth": 3
+        },
+        "legal_citation": { "document_name": "הסכם הניידות", "section": "11", "paragraph": "א", "clause": "בעל רישיון" },
+        "depth": 2
+      },
+      "false_branch": {
+        "node_id": "gvrt-no-license-check",
+        "node_type": "condition",
+        "condition": {
+          "type": "COMPARISON", "variable": "months_since_last_loan", "operator": "gte", "value": 48
+        },
+        "true_branch": {
+          "node_id": "gvrt-no-license-eligible",
+          "node_type": "leaf",
+          "outcome": "eligible",
+          "legal_citation": { "document_name": "הסכם הניידות", "section": "11", "paragraph": "א", "clause": "ללא רישיון - 48 חודשים" },
+          "depth": 3
+        },
+        "false_branch": {
+          "node_id": "gvrt-no-license-too-early",
+          "node_type": "leaf",
+          "outcome": "not_eligible",
+          "legal_citation": { "document_name": "הסכם הניידות", "section": "11", "paragraph": "א", "clause": "ללא רישיון - טרם חלפו 48 חודשים" },
+          "depth": 3
+        },
+        "legal_citation": { "document_name": "הסכם הניידות", "section": "11", "paragraph": "א", "clause": "ללא רישיון" },
+        "depth": 2
+      },
+      "legal_citation": { "document_name": "תדריך ניידות", "section": "החלפת רכב", "paragraph": "תזמון", "clause": "בדיקת רישיון" },
+      "depth": 1
+    },
+    "legal_citation": { "document_name": "תדריך ניידות", "section": "החלפת רכב", "paragraph": "תזמון", "clause": "הסכם הניידות סעיף 11" },
+    "depth": 0
+  }
+}

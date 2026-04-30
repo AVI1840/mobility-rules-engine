@@ -1,0 +1,118 @@
+{
+  "rule_id": "00000000-0000-0000-0000-000000000213",
+  "rule_name": "כפל גמלה - שירותים מיוחדים (שר\"מ)",
+  "source_document_id": "mobility-guide-duplicate-sharm",
+  "source_section": "תדריך ניידות - כפל גמלה - שר\"מ",
+  "effective_date": "2024-01-01",
+  "expiry_date": null,
+  "priority": "statutory",
+  "conditions": {
+    "type": "AND",
+    "operands": [
+      { "type": "COMPARISON", "variable": "receives_sharm", "operator": "eq", "value": true },
+      { "type": "COMPARISON", "variable": "receives_mobility_benefit", "operator": "eq", "value": true }
+    ]
+  },
+  "actions": [
+    {
+      "action_type": "determine_eligibility",
+      "parameters": {
+        "outcome": "conditional",
+        "benefit_type": "duplicate_benefit_check",
+        "note": "כפל גמלה שר\"מ: ב-50% שר\"מ - בחירה חד-פעמית בין הגמלאות. ב-112%/188%/235% שר\"מ - כפל מבוטל אם 100% מוגבלות בניידות או מרותק לכיסא גלגלים"
+      }
+    }
+  ],
+  "legal_citation": {
+    "document_name": "תדריך ניידות",
+    "section": "כפל גמלה",
+    "paragraph": "שר\"מ",
+    "clause": null
+  },
+  "discretionary_flag": false,
+  "discretionary_reason": null,
+  "decision_tree": {
+    "node_id": "gdbs-root",
+    "node_type": "condition",
+    "condition": {
+      "type": "AND",
+      "operands": [
+        { "type": "COMPARISON", "variable": "receives_sharm", "operator": "eq", "value": true },
+        { "type": "COMPARISON", "variable": "receives_mobility_benefit", "operator": "eq", "value": true }
+      ]
+    },
+    "true_branch": {
+      "node_id": "gdbs-check-50pct",
+      "node_type": "condition",
+      "condition": {
+        "type": "COMPARISON", "variable": "sharm_percentage", "operator": "eq", "value": 50
+      },
+      "true_branch": {
+        "node_id": "gdbs-50pct-choice",
+        "node_type": "leaf",
+        "outcome": "requires_choice",
+        "legal_citation": { "document_name": "תדריך ניידות", "section": "כפל גמלה", "paragraph": "שר\"מ", "clause": "50% שר\"מ - בחירה חד-פעמית בין הגמלאות" },
+        "depth": 2
+      },
+      "false_branch": {
+        "node_id": "gdbs-check-high-sharm",
+        "node_type": "condition",
+        "condition": {
+          "type": "OR",
+          "operands": [
+            { "type": "COMPARISON", "variable": "sharm_percentage", "operator": "eq", "value": 112 },
+            { "type": "COMPARISON", "variable": "sharm_percentage", "operator": "eq", "value": 188 },
+            { "type": "COMPARISON", "variable": "sharm_percentage", "operator": "eq", "value": 235 }
+          ]
+        },
+        "true_branch": {
+          "node_id": "gdbs-high-sharm-check-mobility",
+          "node_type": "condition",
+          "condition": {
+            "type": "OR",
+            "operands": [
+              { "type": "COMPARISON", "variable": "disability_percentage", "operator": "eq", "value": 100 },
+              { "type": "COMPARISON", "variable": "wheelchair_user", "operator": "eq", "value": true }
+            ]
+          },
+          "true_branch": {
+            "node_id": "gdbs-duplicate-cancelled",
+            "node_type": "leaf",
+            "outcome": "duplicate_cancelled",
+            "legal_citation": { "document_name": "תדריך ניידות", "section": "כפל גמלה", "paragraph": "שר\"מ", "clause": "112%/188%/235% שר\"מ - כפל מבוטל, 100% מוגבלות או כיסא גלגלים" },
+            "depth": 4
+          },
+          "false_branch": {
+            "node_id": "gdbs-duplicate-applies",
+            "node_type": "leaf",
+            "outcome": "duplicate_benefit_active",
+            "legal_citation": { "document_name": "תדריך ניידות", "section": "כפל גמלה", "paragraph": "שר\"מ", "clause": "112%/188%/235% שר\"מ - כפל גמלה חל, מוגבלות מתחת ל-100% וללא כיסא גלגלים" },
+            "depth": 4
+          },
+          "legal_citation": { "document_name": "תדריך ניידות", "section": "כפל גמלה", "paragraph": "שר\"מ", "clause": "בדיקת מוגבלות לביטול כפל" },
+          "depth": 3
+        },
+        "false_branch": {
+          "node_id": "gdbs-no-duplicate",
+          "node_type": "leaf",
+          "outcome": "no_duplicate",
+          "legal_citation": { "document_name": "תדריך ניידות", "section": "כפל גמלה", "paragraph": "שר\"מ", "clause": "אחוז שר\"מ לא רלוונטי לכפל" },
+          "depth": 3
+        },
+        "legal_citation": { "document_name": "תדריך ניידות", "section": "כפל גמלה", "paragraph": "שר\"מ", "clause": "בדיקת אחוז שר\"מ גבוה" },
+        "depth": 2
+      },
+      "legal_citation": { "document_name": "תדריך ניידות", "section": "כפל גמלה", "paragraph": "שר\"מ", "clause": "בדיקת אחוז שר\"מ" },
+      "depth": 1
+    },
+    "false_branch": {
+      "node_id": "gdbs-no-overlap",
+      "node_type": "leaf",
+      "outcome": "no_duplicate",
+      "legal_citation": { "document_name": "תדריך ניידות", "section": "כפל גמלה", "paragraph": "שר\"מ", "clause": "אין כפל - לא מקבל שר\"מ וניידות במקביל" },
+      "depth": 1
+    },
+    "legal_citation": { "document_name": "תדריך ניידות", "section": "כפל גמלה", "paragraph": "שר\"מ", "clause": null },
+    "depth": 0
+  }
+}

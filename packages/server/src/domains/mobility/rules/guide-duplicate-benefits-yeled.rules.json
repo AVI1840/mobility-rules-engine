@@ -1,0 +1,82 @@
+{
+  "rule_id": "00000000-0000-0000-0000-000000000214",
+  "rule_name": "כפל גמלה - ילד נכה",
+  "source_document_id": "mobility-guide-duplicate-yeled",
+  "source_section": "תדריך ניידות - כפל גמלה - ילד נכה",
+  "effective_date": "2024-01-01",
+  "expiry_date": null,
+  "priority": "statutory",
+  "conditions": {
+    "type": "AND",
+    "operands": [
+      { "type": "COMPARISON", "variable": "receives_yeled_nake", "operator": "eq", "value": true },
+      { "type": "COMPARISON", "variable": "receives_mobility_benefit", "operator": "eq", "value": true }
+    ]
+  },
+  "actions": [
+    {
+      "action_type": "determine_eligibility",
+      "parameters": {
+        "outcome": "conditional",
+        "benefit_type": "duplicate_benefit_check",
+        "note": "כפל גמלה ילד נכה: כפל מבוטל כאשר 80% מוגבלות בניידות, או שני ילדים נכים, או מרותק לכיסא גלגלים"
+      }
+    }
+  ],
+  "legal_citation": {
+    "document_name": "תדריך ניידות",
+    "section": "כפל גמלה",
+    "paragraph": "ילד נכה",
+    "clause": null
+  },
+  "discretionary_flag": false,
+  "discretionary_reason": null,
+  "decision_tree": {
+    "node_id": "gdby-root",
+    "node_type": "condition",
+    "condition": {
+      "type": "AND",
+      "operands": [
+        { "type": "COMPARISON", "variable": "receives_yeled_nake", "operator": "eq", "value": true },
+        { "type": "COMPARISON", "variable": "receives_mobility_benefit", "operator": "eq", "value": true }
+      ]
+    },
+    "true_branch": {
+      "node_id": "gdby-check-cancellation",
+      "node_type": "condition",
+      "condition": {
+        "type": "OR",
+        "operands": [
+          { "type": "COMPARISON", "variable": "disability_percentage", "operator": "gte", "value": 80 },
+          { "type": "COMPARISON", "variable": "number_of_disabled_children", "operator": "gte", "value": 2 },
+          { "type": "COMPARISON", "variable": "wheelchair_user", "operator": "eq", "value": true }
+        ]
+      },
+      "true_branch": {
+        "node_id": "gdby-duplicate-cancelled",
+        "node_type": "leaf",
+        "outcome": "duplicate_cancelled",
+        "legal_citation": { "document_name": "תדריך ניידות", "section": "כפל גמלה", "paragraph": "ילד נכה", "clause": "כפל מבוטל - 80% מוגבלות, שני ילדים נכים, או כיסא גלגלים" },
+        "depth": 2
+      },
+      "false_branch": {
+        "node_id": "gdby-duplicate-applies",
+        "node_type": "leaf",
+        "outcome": "duplicate_benefit_active",
+        "legal_citation": { "document_name": "תדריך ניידות", "section": "כפל גמלה", "paragraph": "ילד נכה", "clause": "כפל גמלה חל - אין תנאי ביטול מתקיים" },
+        "depth": 2
+      },
+      "legal_citation": { "document_name": "תדריך ניידות", "section": "כפל גמלה", "paragraph": "ילד נכה", "clause": "בדיקת תנאי ביטול כפל" },
+      "depth": 1
+    },
+    "false_branch": {
+      "node_id": "gdby-no-overlap",
+      "node_type": "leaf",
+      "outcome": "no_duplicate",
+      "legal_citation": { "document_name": "תדריך ניידות", "section": "כפל גמלה", "paragraph": "ילד נכה", "clause": "אין כפל - לא מקבל ילד נכה וניידות במקביל" },
+      "depth": 1
+    },
+    "legal_citation": { "document_name": "תדריך ניידות", "section": "כפל גמלה", "paragraph": "ילד נכה", "clause": null },
+    "depth": 0
+  }
+}

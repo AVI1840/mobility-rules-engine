@@ -1,0 +1,107 @@
+{
+  "rule_id": "00000000-0000-0000-0000-000000000217",
+  "rule_name": "סעיף 9א(א) - מקרה מיוחד - רכב מותאם 2000 סמ\"ק",
+  "source_document_id": "mobility-guide-section-9a",
+  "source_section": "תדריך ניידות + הסכם הניידות סעיף 9א(א)",
+  "effective_date": "2024-01-01",
+  "expiry_date": null,
+  "priority": "statutory",
+  "conditions": {
+    "type": "AND",
+    "operands": [
+      { "type": "COMPARISON", "variable": "driver_license_holder", "operator": "eq", "value": true },
+      { "type": "COMPARISON", "variable": "disability_percentage", "operator": "eq", "value": 100 },
+      { "type": "COMPARISON", "variable": "permanently_wheelchair_bound", "operator": "eq", "value": true },
+      { "type": "COMPARISON", "variable": "earned_income_months_of_24", "operator": "gte", "value": 21 }
+    ]
+  },
+  "actions": [
+    {
+      "action_type": "determine_eligibility",
+      "parameters": {
+        "outcome": "eligible",
+        "benefit_type": "qualifying_vehicle_2000cc",
+        "note": "זכאי לרכב מותאם 2000 סמ\"ק - סעיף 9א(א): בעל רישיון, 100% מוגבלות, מרותק לכיסא גלגלים לצמיתות, השתכר 21 מתוך 24 חודשים לפני התביעה. הזכאות נמשכת גם אם הפסיק לעבוד כל עוד הרכב ברשותו"
+      }
+    }
+  ],
+  "legal_citation": {
+    "document_name": "הסכם הניידות",
+    "section": "9א",
+    "paragraph": "א",
+    "clause": null
+  },
+  "discretionary_flag": false,
+  "discretionary_reason": null,
+  "decision_tree": {
+    "node_id": "gs9a-root",
+    "node_type": "condition",
+    "condition": {
+      "type": "COMPARISON", "variable": "driver_license_holder", "operator": "eq", "value": true
+    },
+    "true_branch": {
+      "node_id": "gs9a-check-100pct",
+      "node_type": "condition",
+      "condition": {
+        "type": "COMPARISON", "variable": "disability_percentage", "operator": "eq", "value": 100
+      },
+      "true_branch": {
+        "node_id": "gs9a-check-wheelchair",
+        "node_type": "condition",
+        "condition": {
+          "type": "COMPARISON", "variable": "permanently_wheelchair_bound", "operator": "eq", "value": true
+        },
+        "true_branch": {
+          "node_id": "gs9a-check-income",
+          "node_type": "condition",
+          "condition": {
+            "type": "COMPARISON", "variable": "earned_income_months_of_24", "operator": "gte", "value": 21
+          },
+          "true_branch": {
+            "node_id": "gs9a-eligible",
+            "node_type": "leaf",
+            "outcome": "eligible",
+            "legal_citation": { "document_name": "הסכם הניידות", "section": "9א", "paragraph": "א", "clause": "רכב מותאם 2000 סמ\"ק - כל התנאים מתקיימים. הזכאות נמשכת גם אם הפסיק לעבוד כל עוד הרכב ברשותו" },
+            "depth": 4
+          },
+          "false_branch": {
+            "node_id": "gs9a-insufficient-income",
+            "node_type": "leaf",
+            "outcome": "not_eligible",
+            "legal_citation": { "document_name": "הסכם הניידות", "section": "9א", "paragraph": "א", "clause": "לא השתכר 21 מתוך 24 חודשים לפני התביעה" },
+            "depth": 4
+          },
+          "legal_citation": { "document_name": "הסכם הניידות", "section": "9א", "paragraph": "א", "clause": "בדיקת תקופת השתכרות" },
+          "depth": 3
+        },
+        "false_branch": {
+          "node_id": "gs9a-not-wheelchair",
+          "node_type": "leaf",
+          "outcome": "not_eligible",
+          "legal_citation": { "document_name": "הסכם הניידות", "section": "9א", "paragraph": "א", "clause": "לא מרותק לכיסא גלגלים לצמיתות" },
+          "depth": 3
+        },
+        "legal_citation": { "document_name": "הסכם הניידות", "section": "9א", "paragraph": "א", "clause": "בדיקת ריתוק לכיסא גלגלים" },
+        "depth": 2
+      },
+      "false_branch": {
+        "node_id": "gs9a-not-100pct",
+        "node_type": "leaf",
+        "outcome": "not_eligible",
+        "legal_citation": { "document_name": "הסכם הניידות", "section": "9א", "paragraph": "א", "clause": "מוגבלות מתחת ל-100%" },
+        "depth": 2
+      },
+      "legal_citation": { "document_name": "הסכם הניידות", "section": "9א", "paragraph": "א", "clause": "בדיקת 100% מוגבלות" },
+      "depth": 1
+    },
+    "false_branch": {
+      "node_id": "gs9a-no-license",
+      "node_type": "leaf",
+      "outcome": "not_eligible",
+      "legal_citation": { "document_name": "הסכם הניידות", "section": "9א", "paragraph": "א", "clause": "ללא רישיון נהיגה" },
+      "depth": 1
+    },
+    "legal_citation": { "document_name": "הסכם הניידות", "section": "9א", "paragraph": "א", "clause": null },
+    "depth": 0
+  }
+}

@@ -1,0 +1,108 @@
+{
+  "rule_id": "00000000-0000-0000-0000-000000000211",
+  "rule_name": "חסר רכב - משתכר (מפורט)",
+  "source_document_id": "mobility-guide-vehicle-less-earner",
+  "source_section": "תדריך ניידות - קצבת חסר רכב - תנאי 1 - משתכר",
+  "effective_date": "2024-01-01",
+  "expiry_date": null,
+  "priority": "statutory",
+  "conditions": {
+    "type": "AND",
+    "operands": [
+      { "type": "COMPARISON", "variable": "age", "operator": "gte", "value": 18 },
+      { "type": "COMPARISON", "variable": "is_earner_above_25pct_avg_wage", "operator": "eq", "value": true },
+      { "type": "COMPARISON", "variable": "disability_percentage", "operator": "gte", "value": 80 },
+      { "type": "NOT", "operands": [{ "type": "COMPARISON", "variable": "receiving_general_disability_nk", "operator": "eq", "value": true }] }
+    ]
+  },
+  "actions": [
+    {
+      "action_type": "determine_eligibility",
+      "parameters": {
+        "outcome": "eligible",
+        "benefit_type": "vehicle_less_allowance",
+        "note": "זכאי לקצבת חסר רכב - משתכר מעל גיל 18, הכנסה מעל 25% מהשכר הממוצע, 80% מוגבלות בניידות לפחות, לא מקבל קצבת נכות כללית (נ\"כ)"
+      }
+    }
+  ],
+  "legal_citation": {
+    "document_name": "תדריך ניידות",
+    "section": "קצבת חסר רכב",
+    "paragraph": "תנאי 1",
+    "clause": "משתכר"
+  },
+  "discretionary_flag": false,
+  "discretionary_reason": null,
+  "decision_tree": {
+    "node_id": "gnved-root",
+    "node_type": "condition",
+    "condition": {
+      "type": "COMPARISON", "variable": "age", "operator": "gte", "value": 18
+    },
+    "true_branch": {
+      "node_id": "gnved-check-earner",
+      "node_type": "condition",
+      "condition": {
+        "type": "COMPARISON", "variable": "is_earner_above_25pct_avg_wage", "operator": "eq", "value": true
+      },
+      "true_branch": {
+        "node_id": "gnved-check-mobility",
+        "node_type": "condition",
+        "condition": {
+          "type": "COMPARISON", "variable": "disability_percentage", "operator": "gte", "value": 80
+        },
+        "true_branch": {
+          "node_id": "gnved-check-nk",
+          "node_type": "condition",
+          "condition": {
+            "type": "NOT",
+            "operands": [{ "type": "COMPARISON", "variable": "receiving_general_disability_nk", "operator": "eq", "value": true }]
+          },
+          "true_branch": {
+            "node_id": "gnved-eligible",
+            "node_type": "leaf",
+            "outcome": "eligible",
+            "legal_citation": { "document_name": "תדריך ניידות", "section": "קצבת חסר רכב", "paragraph": "תנאי 1", "clause": "משתכר - כל התנאים מתקיימים" },
+            "depth": 4
+          },
+          "false_branch": {
+            "node_id": "gnved-nk-disqualified",
+            "node_type": "leaf",
+            "outcome": "not_eligible",
+            "legal_citation": { "document_name": "תדריך ניידות", "section": "קצבת חסר רכב", "paragraph": "תנאי 1", "clause": "מקבל קצבת נכות כללית - לא זכאי" },
+            "depth": 4
+          },
+          "legal_citation": { "document_name": "תדריך ניידות", "section": "קצבת חסר רכב", "paragraph": "תנאי 1", "clause": "בדיקת נכות כללית" },
+          "depth": 3
+        },
+        "false_branch": {
+          "node_id": "gnved-low-mobility",
+          "node_type": "leaf",
+          "outcome": "not_eligible",
+          "legal_citation": { "document_name": "תדריך ניידות", "section": "קצבת חסר רכב", "paragraph": "תנאי 1", "clause": "אחוז מוגבלות בניידות מתחת ל-80%" },
+          "depth": 3
+        },
+        "legal_citation": { "document_name": "תדריך ניידות", "section": "קצבת חסר רכב", "paragraph": "תנאי 1", "clause": "בדיקת אחוז מוגבלות" },
+        "depth": 2
+      },
+      "false_branch": {
+        "node_id": "gnved-not-earner",
+        "node_type": "leaf",
+        "outcome": "not_eligible",
+        "legal_citation": { "document_name": "תדריך ניידות", "section": "קצבת חסר רכב", "paragraph": "תנאי 1", "clause": "הכנסה מתחת ל-25% מהשכר הממוצע" },
+        "depth": 2
+      },
+      "legal_citation": { "document_name": "תדריך ניידות", "section": "קצבת חסר רכב", "paragraph": "תנאי 1", "clause": "בדיקת השתכרות" },
+      "depth": 1
+    },
+    "false_branch": {
+      "node_id": "gnved-under-age",
+      "node_type": "leaf",
+      "outcome": "not_eligible",
+      "legal_citation": { "document_name": "תדריך ניידות", "section": "קצבת חסר רכב", "paragraph": "תנאי 1", "clause": "מתחת לגיל 18" },
+      "depth": 1
+    },
+    "legal_citation": { "document_name": "תדריך ניידות", "section": "קצבת חסר רכב", "paragraph": "תנאי 1", "clause": null },
+    "depth": 0
+  }
+}
