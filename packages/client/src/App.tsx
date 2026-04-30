@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import { MessageCircle, LayoutDashboard, Scale, Eye, BookOpen, Search, Zap, FileText, TestTube, ClipboardCheck } from 'lucide-react';
+import { MessageCircle, LayoutDashboard, Scale, Eye, BookOpen, Search, Zap, FileText, TestTube, ClipboardCheck, Calculator } from 'lucide-react';
 import { FeedbackModal } from '@/components/FeedbackModal';
 import { Dashboard } from '@/components/Dashboard';
 import { EligibilityForm } from '@/components/EligibilityForm';
@@ -10,9 +10,10 @@ import { EdgeCaseSimulation } from '@/components/EdgeCaseSimulation';
 import { SourceMaterials } from '@/components/SourceMaterials';
 import { QADashboard } from '@/components/QADashboard';
 import { ValidationWorkbench } from '@/components/ValidationWorkbench';
+import { MobilityCalculator } from '@/components/MobilityCalculator';
 import type { EvaluationResponse } from '@/types';
 
-type Tab = 'dashboard' | 'eligibility' | 'trace' | 'explanation' | 'variables' | 'edge-cases' | 'sources' | 'validation' | 'qa';
+type Tab = 'dashboard' | 'calculator' | 'eligibility' | 'trace' | 'explanation' | 'variables' | 'edge-cases' | 'sources' | 'validation' | 'qa';
 
 export default function App() {
   const [activeTab, setActiveTab] = useState<Tab>('dashboard');
@@ -21,6 +22,7 @@ export default function App() {
 
   const navItems = [
     { id: 'dashboard' as Tab, label: 'סקירה כללית', icon: LayoutDashboard },
+    { id: 'calculator' as Tab, label: 'מחשבון ניידות', icon: Calculator },
     { id: 'eligibility' as Tab, label: 'בדיקת זכאות', icon: Scale },
     { id: 'trace' as Tab, label: 'מעקב החלטות', icon: Eye },
     { id: 'explanation' as Tab, label: 'הסבר כללים', icon: BookOpen },
@@ -42,7 +44,7 @@ export default function App() {
           </div>
         </div>
         <div className="flex items-center gap-3">
-          <span className="text-xs bg-green-500/20 text-green-200 px-2 py-1 rounded font-medium">24 כללים פעילים</span>
+          <span className="text-xs bg-green-500/20 text-green-200 px-2 py-1 rounded font-medium">24+ כללים | 3 מקורות ראשיים</span>
           <span className="text-xs bg-white/15 px-2 py-1 rounded">פיילוט v1.0</span>
         </div>
       </header>
@@ -70,6 +72,7 @@ export default function App() {
         {/* Main content */}
         <main className="flex-1 p-6 overflow-auto">
           {activeTab === 'dashboard' && <Dashboard onNavigate={(t) => setActiveTab(t as Tab)} />}
+          {activeTab === 'calculator' && <MobilityCalculator />}
           {activeTab === 'eligibility' && <EligibilityForm onResult={setLastResult} />}
           {activeTab === 'trace' && <DecisionTrace result={lastResult} />}
           {activeTab === 'explanation' && <RuleExplanation result={lastResult} />}
