@@ -111,6 +111,67 @@ const RULES: Array<{
     priority: 'judicial_override',
     evaluate: () => 'not_eligible', // Requires arueti_precedent_applicable flag
   },
+  // === Agreement-based rules (הסכם הניידות) ===
+  {
+    id: 'agr-s5b', name: 'הלוואה עומדת לבעל רישיון - סעיף 5(ב)',
+    doc: 'הסכם הניידות', section: '5', par: 'ב', clause: null,
+    priority: 'statutory',
+    evaluate: (r) => r.operational?.driver_license_holder === true && (r.medical?.disability_percentage ?? 0) >= 40 ? 'eligible' : 'not_eligible',
+  },
+  {
+    id: 'agr-s5c', name: 'הלוואה עומדת ללא רישיון - סעיף 5(ג)',
+    doc: 'הסכם הניידות', section: '5', par: 'ג', clause: null,
+    priority: 'statutory',
+    evaluate: (r) => r.operational?.driver_license_holder !== true && (r.medical?.disability_percentage ?? 0) >= 60 && r.operational?.authorized_driver_status === true ? 'eligible' : 'not_eligible',
+  },
+  {
+    id: 'agr-s4', name: 'אי תחולה - נכה לפי חוק אחר - סעיף 4',
+    doc: 'הסכם הניידות', section: '4', par: 'א', clause: null,
+    priority: 'statutory',
+    evaluate: () => 'not_eligible', // Requires is_disabled_under_other_law flag
+  },
+  {
+    id: 'agr-s14', name: 'תוספת קצבה - מרחק עבודה - סעיף 14',
+    doc: 'הסכם הניידות', section: '14', par: 'א', clause: null,
+    priority: 'statutory',
+    evaluate: () => 'not_eligible', // Requires work_distance_km_round_trip >= 40
+  },
+  {
+    id: 'agr-qv', name: 'רכב קובע - תוספת ג\'',
+    doc: 'הסכם הניידות', section: 'תוספת ג\'', par: 'סימנים א\'-ג\'', clause: null,
+    priority: 'statutory',
+    evaluate: (r) => (r.medical?.disability_percentage ?? 0) >= 40 ? 'eligible' : 'not_eligible',
+  },
+  {
+    id: 'agr-lr', name: 'שיעורי הלוואה - תוספת ד\'',
+    doc: 'הסכם הניידות', section: 'תוספת ד\'', par: 'סימנים א\'-ב\'', clause: null,
+    priority: 'statutory',
+    evaluate: (r) => (r.medical?.disability_percentage ?? 0) >= 40 ? 'eligible' : 'not_eligible',
+  },
+  {
+    id: 'agr-s13', name: 'קצבת ניידות לבעלי רכב - סעיף 13',
+    doc: 'הסכם הניידות', section: '13', par: 'א', clause: null,
+    priority: 'statutory',
+    evaluate: (r) => (r.medical?.disability_percentage ?? 0) >= 40 && (r.operational?.driver_license_holder === true || r.operational?.authorized_driver_status === true) ? 'eligible' : 'not_eligible',
+  },
+  {
+    id: 'agr-s11', name: 'החלפת רכב - סעיף 11',
+    doc: 'הסכם הניידות', section: '11', par: 'א', clause: null,
+    priority: 'statutory',
+    evaluate: () => 'not_eligible', // Requires months_since_last_loan
+  },
+  {
+    id: 'agr-s20', name: 'הפסקת תשלום - סעיף 20',
+    doc: 'הסכם הניידות', section: '20', par: 'א', clause: null,
+    priority: 'statutory',
+    evaluate: () => 'not_eligible', // Requires hospitalization/abroad data
+  },
+  {
+    id: 'agr-s9a', name: 'רכב קובע 2000 סמ"ק - 100% מוגבלות - סעיף 9א',
+    doc: 'הסכם הניידות', section: '9א', par: 'א', clause: null,
+    priority: 'statutory',
+    evaluate: (r) => r.operational?.driver_license_holder === true && (r.medical?.disability_percentage ?? 0) === 100 ? 'requires_discretion' : 'not_eligible',
+  },
 ];
 
 export function demoEvaluate(request: EvaluationRequest): EvaluationResponse {

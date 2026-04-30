@@ -84,6 +84,57 @@ const SOURCES: SourceDoc[] = [
     priority: 'judicial_override', priorityLabel: 'עקיפה שיפוטית', priorityColor: 'bg-red-100 text-red-800 border-red-300',
     description: 'תקדים שיפוטי בנושא זכאות ניידות', ruleCount: 1, status: 'encoded',
   },
+  // === כללים מהסכם הניידות ===
+  {
+    id: 'agreement-s5b', name: 'הסכם הניידות - סעיף 5(ב)', type: 'statutory', typeLabel: 'הסכם',
+    priority: 'statutory', priorityLabel: 'חקיקה', priorityColor: 'bg-blue-100 text-blue-800 border-blue-300',
+    description: 'הלוואה עומדת לבעל רישיון נהיגה - 40% מוגבלות לפחות', ruleCount: 1, status: 'encoded',
+  },
+  {
+    id: 'agreement-s5c', name: 'הסכם הניידות - סעיף 5(ג)', type: 'statutory', typeLabel: 'הסכם',
+    priority: 'statutory', priorityLabel: 'חקיקה', priorityColor: 'bg-blue-100 text-blue-800 border-blue-300',
+    description: 'הלוואה עומדת ללא רישיון - 60% מוגבלות, צרכים יומיים, מורשה נהיגה', ruleCount: 1, status: 'encoded',
+  },
+  {
+    id: 'agreement-s4', name: 'הסכם הניידות - סעיף 4', type: 'statutory', typeLabel: 'הסכם',
+    priority: 'statutory', priorityLabel: 'חקיקה', priorityColor: 'bg-blue-100 text-blue-800 border-blue-300',
+    description: 'אי תחולה - נכה לפי חוק אחר עם הסדר קיים', ruleCount: 1, status: 'encoded',
+  },
+  {
+    id: 'agreement-s14', name: 'הסכם הניידות - סעיף 14', type: 'statutory', typeLabel: 'הסכם',
+    priority: 'statutory', priorityLabel: 'חקיקה', priorityColor: 'bg-blue-100 text-blue-800 border-blue-300',
+    description: 'תוספת קצבה - מרחק עבודה 40 ק"מ הלוך וחזור', ruleCount: 1, status: 'encoded',
+  },
+  {
+    id: 'agreement-appendix-c', name: 'הסכם הניידות - תוספת ג\'', type: 'statutory', typeLabel: 'הסכם',
+    priority: 'statutory', priorityLabel: 'חקיקה', priorityColor: 'bg-blue-100 text-blue-800 border-blue-300',
+    description: 'רכב קובע - נפח מנוע לפי אחוז מוגבלות ורישיון', ruleCount: 1, status: 'encoded',
+  },
+  {
+    id: 'agreement-appendix-d', name: 'הסכם הניידות - תוספת ד\'', type: 'statutory', typeLabel: 'הסכם',
+    priority: 'statutory', priorityLabel: 'חקיקה', priorityColor: 'bg-blue-100 text-blue-800 border-blue-300',
+    description: 'שיעורי הלוואה עומדת - אחוז מההלוואה המלאה', ruleCount: 1, status: 'encoded',
+  },
+  {
+    id: 'agreement-s13', name: 'הסכם הניידות - סעיף 13', type: 'statutory', typeLabel: 'הסכם',
+    priority: 'statutory', priorityLabel: 'חקיקה', priorityColor: 'bg-blue-100 text-blue-800 border-blue-300',
+    description: 'קצבת ניידות לבעלי רכב - לפי תוספת ח\'', ruleCount: 1, status: 'encoded',
+  },
+  {
+    id: 'agreement-s11', name: 'הסכם הניידות - סעיף 11', type: 'statutory', typeLabel: 'הסכם',
+    priority: 'statutory', priorityLabel: 'חקיקה', priorityColor: 'bg-blue-100 text-blue-800 border-blue-300',
+    description: 'החלפת רכב - 42/48 חודשים לפי רישיון', ruleCount: 1, status: 'encoded',
+  },
+  {
+    id: 'agreement-s20', name: 'הסכם הניידות - סעיף 20', type: 'statutory', typeLabel: 'הסכם',
+    priority: 'statutory', priorityLabel: 'חקיקה', priorityColor: 'bg-blue-100 text-blue-800 border-blue-300',
+    description: 'הפסקת תשלום - אשפוז/יציאה מהארץ/הפסקת שימוש', ruleCount: 1, status: 'encoded',
+  },
+  {
+    id: 'agreement-s9a', name: 'הסכם הניידות - סעיף 9א', type: 'statutory', typeLabel: 'הסכם',
+    priority: 'statutory', priorityLabel: 'חקיקה', priorityColor: 'bg-blue-100 text-blue-800 border-blue-300',
+    description: 'רכב קובע 2000 סמ"ק - 100% מוגבלות, כיסא גלגלים, משתכר', ruleCount: 1, status: 'encoded',
+  },
 ];
 
 const PRIORITY_HIERARCHY = [

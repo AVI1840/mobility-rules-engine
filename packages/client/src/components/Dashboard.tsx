@@ -18,7 +18,7 @@ export function Dashboard({ onNavigate }: Props) {
         </p>
         <div className="flex gap-4 mt-4">
           <div className="bg-white/15 rounded-lg px-4 py-2 text-center">
-            <p className="text-2xl font-bold">14</p>
+            <p className="text-2xl font-bold">24</p>
             <p className="text-xs opacity-80">כללים פעילים</p>
           </div>
           <div className="bg-white/15 rounded-lg px-4 py-2 text-center">
@@ -54,7 +54,7 @@ export function Dashboard({ onNavigate }: Props) {
               <div className="w-10 h-10 rounded-full mx-auto flex items-center justify-center text-white" style={{ backgroundColor: '#1B3A5C' }}>
                 <span className="text-lg font-bold">2</span>
               </div>
-              <p className="text-sm font-medium">המנוע בודק 14 כללים</p>
+              <p className="text-sm font-medium">המנוע בודק 24 כללים</p>
               <p className="text-xs text-gray-500">חוזרים, הסכמים, פסקי דין — לפי היררכיה משפטית</p>
             </CardContent>
           </Card>
