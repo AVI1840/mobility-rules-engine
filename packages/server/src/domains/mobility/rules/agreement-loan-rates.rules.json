@@ -1,0 +1,126 @@
+{
+  "rule_id": "00000000-0000-0000-0000-000000000106",
+  "rule_name": "שיעורי הלוואה עומדת - תוספת ד' להסכם הניידות",
+  "source_document_id": "mobility-agreement-appendix-d",
+  "source_section": "הסכם הניידות - תוספת ד' - שיעורי ההלוואה העומדת",
+  "effective_date": "1977-06-01",
+  "expiry_date": null,
+  "priority": "statutory",
+  "conditions": {
+    "type": "AND",
+    "operands": [
+      { "type": "EXISTS", "variable": "disability_percentage" },
+      { "type": "COMPARISON", "variable": "disability_percentage", "operator": "gte", "value": 40 }
+    ]
+  },
+  "actions": [
+    {
+      "action_type": "calculate_amount",
+      "parameters": {
+        "calculation_type": "loan_rate",
+        "note": "שיעור ההלוואה: בעל רישיון 80%+ = 100%, בעל רישיון 40-79% = אחוז המוגבלות, ללא רישיון 80%+ = 75%, ללא רישיון 60-79% = 75% כפול אחוז המוגבלות",
+        "rules": [
+          { "condition": "driver_license AND disability >= 80", "rate": "100%" },
+          { "condition": "driver_license AND disability 40-79", "rate": "disability_percentage%" },
+          { "condition": "no_license AND disability >= 80", "rate": "75%" },
+          { "condition": "no_license AND disability 60-79", "rate": "75% * disability_percentage%" }
+        ]
+      }
+    }
+  ],
+  "legal_citation": {
+    "document_name": "הסכם הניידות",
+    "section": "תוספת ד'",
+    "paragraph": "סימנים א'-ב'",
+    "clause": null
+  },
+  "discretionary_flag": false,
+  "discretionary_reason": null,
+  "decision_tree": {
+    "node_id": "lr-root",
+    "node_type": "condition",
+    "condition": {
+      "type": "AND",
+      "operands": [
+        { "type": "COMPARISON", "variable": "driver_license_holder", "operator": "eq", "value": true },
+        { "type": "COMPARISON", "variable": "disability_percentage", "operator": "gte", "value": 80 }
+      ]
+    },
+    "true_branch": {
+      "node_id": "lr-100pct",
+      "node_type": "leaf",
+      "outcome": "eligible",
+      "legal_citation": { "document_name": "הסכם הניידות", "section": "תוספת ד'", "paragraph": "סימן א' פרט 1", "clause": "100% מההלוואה המלאה" },
+      "depth": 1
+    },
+    "false_branch": {
+      "node_id": "lr-check-license-40",
+      "node_type": "condition",
+      "condition": {
+        "type": "AND",
+        "operands": [
+          { "type": "COMPARISON", "variable": "driver_license_holder", "operator": "eq", "value": true },
+          { "type": "COMPARISON", "variable": "disability_percentage", "operator": "gte", "value": 40 }
+        ]
+      },
+      "true_branch": {
+        "node_id": "lr-pct-disability",
+        "node_type": "leaf",
+        "outcome": "eligible",
+        "legal_citation": { "document_name": "הסכם הניידות", "section": "תוספת ד'", "paragraph": "סימן א' פרט 2", "clause": "באחוז השווה לאחוז המוגבלות" },
+        "depth": 2
+      },
+      "false_branch": {
+        "node_id": "lr-check-no-license-80",
+        "node_type": "condition",
+        "condition": {
+          "type": "AND",
+          "operands": [
+            { "type": "NOT", "operands": [{ "type": "COMPARISON", "variable": "driver_license_holder", "operator": "eq", "value": true }] },
+            { "type": "COMPARISON", "variable": "disability_percentage", "operator": "gte", "value": 80 }
+          ]
+        },
+        "true_branch": {
+          "node_id": "lr-75pct",
+          "node_type": "leaf",
+          "outcome": "eligible",
+          "legal_citation": { "document_name": "הסכם הניידות", "section": "תוספת ד'", "paragraph": "סימן ב' פרט 3", "clause": "75% מההלוואה המלאה" },
+          "depth": 3
+        },
+        "false_branch": {
+          "node_id": "lr-check-no-license-60",
+          "node_type": "condition",
+          "condition": {
+            "type": "AND",
+            "operands": [
+              { "type": "NOT", "operands": [{ "type": "COMPARISON", "variable": "driver_license_holder", "operator": "eq", "value": true }] },
+              { "type": "COMPARISON", "variable": "disability_percentage", "operator": "gte", "value": 60 }
+            ]
+          },
+          "true_branch": {
+            "node_id": "lr-75-times-pct",
+            "node_type": "leaf",
+            "outcome": "eligible",
+            "legal_citation": { "document_name": "הסכם הניידות", "section": "תוספת ד'", "paragraph": "סימן ב' פרט 4", "clause": "75% כפול אחוז המוגבלות" },
+            "depth": 4
+          },
+          "false_branch": {
+            "node_id": "lr-not-eligible",
+            "node_type": "leaf",
+            "outcome": "not_eligible",
+            "legal_citation": { "document_name": "הסכם הניידות", "section": "תוספת ד'", "paragraph": "כללי", "clause": null },
+            "depth": 4
+          },
+          "legal_citation": { "document_name": "הסכם הניידות", "section": "תוספת ד'", "paragraph": "סימן ב'", "clause": null },
+          "depth": 3
+        },
+        "legal_citation": { "document_name": "הסכם הניידות", "section": "תוספת ד'", "paragraph": "סימן ב'", "clause": null },
+        "depth": 2
+      },
+      "legal_citation": { "document_name": "הסכם הניידות", "section": "תוספת ד'", "paragraph": "סימן א'", "clause": null },
+      "depth": 1
+    },
+    "legal_citation": { "document_name": "הסכם הניידות", "section": "תוספת ד'", "paragraph": "סימן א'", "clause": null },
+    "depth": 0
+  }
+}

@@ -40,6 +40,12 @@ const RULE_FILES = [
   'agreement-loan-without-license.rules.json',
   'agreement-non-applicability.rules.json',
   'agreement-allowance-supplement.rules.json',
+  'agreement-qualifying-vehicle.rules.json',
+  'agreement-loan-rates.rules.json',
+  'agreement-mobility-allowance-vehicle-owner.rules.json',
+  'agreement-vehicle-replacement.rules.json',
+  'agreement-payment-suspension.rules.json',
+  'agreement-100pct-vehicle.rules.json',
   // Circulars
   'circular-2056-engine-volume.rules.json',
   'circular-1996-amendment24.rules.json',

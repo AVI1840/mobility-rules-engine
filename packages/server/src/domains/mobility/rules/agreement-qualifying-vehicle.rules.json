@@ -1,0 +1,106 @@
+{
+  "rule_id": "00000000-0000-0000-0000-000000000105",
+  "rule_name": "רכב קובע - תוספת ג' להסכם הניידות",
+  "source_document_id": "mobility-agreement-appendix-c",
+  "source_section": "הסכם הניידות - תוספת ג' - הרכב הקובע",
+  "effective_date": "1977-06-01",
+  "expiry_date": null,
+  "priority": "statutory",
+  "conditions": {
+    "type": "AND",
+    "operands": [
+      { "type": "EXISTS", "variable": "disability_percentage" },
+      { "type": "COMPARISON", "variable": "disability_percentage", "operator": "gte", "value": 40 }
+    ]
+  },
+  "actions": [
+    {
+      "action_type": "calculate_amount",
+      "parameters": {
+        "calculation_type": "qualifying_vehicle",
+        "note": "רכב קובע נקבע לפי תוספת ג': בעל רישיון 80%+ = 1800 סמ\"ק, בעל רישיון 40-79% = 1300 סמ\"ק, ללא רישיון 60-100% = 1300 סמ\"ק, רכב משותף מתחת ל-18 = 1800 סמ\"ק",
+        "rules": [
+          { "condition": "driver_license_holder AND disability_percentage >= 80", "engine_volume": 1800 },
+          { "condition": "driver_license_holder AND disability_percentage 40-79", "engine_volume": 1300 },
+          { "condition": "NOT driver_license_holder AND disability_percentage >= 60", "engine_volume": 1300 },
+          { "condition": "shared_vehicle AND age < 18", "engine_volume": 1800 }
+        ]
+      }
+    }
+  ],
+  "legal_citation": {
+    "document_name": "הסכם הניידות",
+    "section": "תוספת ג'",
+    "paragraph": "סימנים א'-ג'",
+    "clause": null
+  },
+  "discretionary_flag": false,
+  "discretionary_reason": null,
+  "decision_tree": {
+    "node_id": "qv-root",
+    "node_type": "condition",
+    "condition": {
+      "type": "AND",
+      "operands": [
+        { "type": "COMPARISON", "variable": "driver_license_holder", "operator": "eq", "value": true },
+        { "type": "COMPARISON", "variable": "disability_percentage", "operator": "gte", "value": 80 }
+      ]
+    },
+    "true_branch": {
+      "node_id": "qv-1800",
+      "node_type": "leaf",
+      "outcome": "eligible",
+      "legal_citation": { "document_name": "הסכם הניידות", "section": "תוספת ג'", "paragraph": "סימן א' פרט 1", "clause": "רכב קובע 1800 סמ\"ק" },
+      "depth": 1
+    },
+    "false_branch": {
+      "node_id": "qv-check-license-40",
+      "node_type": "condition",
+      "condition": {
+        "type": "AND",
+        "operands": [
+          { "type": "COMPARISON", "variable": "driver_license_holder", "operator": "eq", "value": true },
+          { "type": "COMPARISON", "variable": "disability_percentage", "operator": "gte", "value": 40 }
+        ]
+      },
+      "true_branch": {
+        "node_id": "qv-1300-license",
+        "node_type": "leaf",
+        "outcome": "eligible",
+        "legal_citation": { "document_name": "הסכם הניידות", "section": "תוספת ג'", "paragraph": "סימן א' פרט 2", "clause": "רכב קובע 1300 סמ\"ק" },
+        "depth": 2
+      },
+      "false_branch": {
+        "node_id": "qv-check-no-license",
+        "node_type": "condition",
+        "condition": {
+          "type": "AND",
+          "operands": [
+            { "type": "NOT", "operands": [{ "type": "COMPARISON", "variable": "driver_license_holder", "operator": "eq", "value": true }] },
+            { "type": "COMPARISON", "variable": "disability_percentage", "operator": "gte", "value": 60 }
+          ]
+        },
+        "true_branch": {
+          "node_id": "qv-1300-no-license",
+          "node_type": "leaf",
+          "outcome": "eligible",
+          "legal_citation": { "document_name": "הסכם הניידות", "section": "תוספת ג'", "paragraph": "סימן ב'", "clause": "רכב קובע 1300 סמ\"ק ללא רישיון" },
+          "depth": 3
+        },
+        "false_branch": {
+          "node_id": "qv-not-eligible",
+          "node_type": "leaf",
+          "outcome": "not_eligible",
+          "legal_citation": { "document_name": "הסכם הניידות", "section": "תוספת ג'", "paragraph": "כללי", "clause": "לא עומד בתנאי רכב קובע" },
+          "depth": 3
+        },
+        "legal_citation": { "document_name": "הסכם הניידות", "section": "תוספת ג'", "paragraph": "סימן ב'", "clause": null },
+        "depth": 2
+      },
+      "legal_citation": { "document_name": "הסכם הניידות", "section": "תוספת ג'", "paragraph": "סימן א' פרט 2", "clause": null },
+      "depth": 1
+    },
+    "legal_citation": { "document_name": "הסכם הניידות", "section": "תוספת ג'", "paragraph": "סימן א' פרט 1", "clause": null },
+    "depth": 0
+  }
+}

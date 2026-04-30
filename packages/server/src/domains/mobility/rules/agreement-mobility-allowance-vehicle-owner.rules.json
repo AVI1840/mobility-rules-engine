@@ -1,0 +1,68 @@
+{
+  "rule_id": "00000000-0000-0000-0000-000000000107",
+  "rule_name": "קצבת ניידות לבעלי רכב - סעיף 13 להסכם",
+  "source_document_id": "mobility-agreement-section-13",
+  "source_section": "הסכם הניידות - סעיף 13 - שיעורי קצבת ניידות לבעלי רכב",
+  "effective_date": "1977-06-01",
+  "expiry_date": null,
+  "priority": "statutory",
+  "conditions": {
+    "type": "AND",
+    "operands": [
+      { "type": "COMPARISON", "variable": "disability_percentage", "operator": "gte", "value": 40 },
+      { "type": "COMPARISON", "variable": "has_vehicle", "operator": "eq", "value": true },
+      {
+        "type": "OR",
+        "operands": [
+          { "type": "COMPARISON", "variable": "driver_license_holder", "operator": "eq", "value": true },
+          { "type": "COMPARISON", "variable": "authorized_driver_status", "operator": "eq", "value": true }
+        ]
+      }
+    ]
+  },
+  "actions": [
+    { "action_type": "determine_eligibility", "parameters": { "outcome": "eligible", "benefit_type": "mobility_allowance_vehicle_owner", "note": "זכאי לקצבת ניידות כבעל רכב - לפי תוספת ח' בהתאם לגודל הרכב ואחוז המוגבלות" } }
+  ],
+  "legal_citation": {
+    "document_name": "הסכם הניידות",
+    "section": "13",
+    "paragraph": "א",
+    "clause": null
+  },
+  "discretionary_flag": false,
+  "discretionary_reason": null,
+  "decision_tree": {
+    "node_id": "s13-root",
+    "node_type": "condition",
+    "condition": {
+      "type": "AND",
+      "operands": [
+        { "type": "COMPARISON", "variable": "disability_percentage", "operator": "gte", "value": 40 },
+        { "type": "COMPARISON", "variable": "has_vehicle", "operator": "eq", "value": true },
+        {
+          "type": "OR",
+          "operands": [
+            { "type": "COMPARISON", "variable": "driver_license_holder", "operator": "eq", "value": true },
+            { "type": "COMPARISON", "variable": "authorized_driver_status", "operator": "eq", "value": true }
+          ]
+        }
+      ]
+    },
+    "true_branch": {
+      "node_id": "s13-eligible",
+      "node_type": "leaf",
+      "outcome": "eligible",
+      "legal_citation": { "document_name": "הסכם הניידות", "section": "13", "paragraph": "א", "clause": null },
+      "depth": 1
+    },
+    "false_branch": {
+      "node_id": "s13-not-eligible",
+      "node_type": "leaf",
+      "outcome": "not_eligible",
+      "legal_citation": { "document_name": "הסכם הניידות", "section": "13", "paragraph": "א", "clause": null },
+      "depth": 1
+    },
+    "legal_citation": { "document_name": "הסכם הניידות", "section": "13", "paragraph": "א", "clause": null },
+    "depth": 0
+  }
+}

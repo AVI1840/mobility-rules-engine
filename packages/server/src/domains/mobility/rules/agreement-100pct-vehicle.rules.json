@@ -1,0 +1,59 @@
+{
+  "rule_id": "00000000-0000-0000-0000-000000000110",
+  "rule_name": "רכב קובע למוגבל בניידות ב-100% - סעיף 9א להסכם",
+  "source_document_id": "mobility-agreement-section-9a",
+  "source_section": "הסכם הניידות - סעיף 9א - רכב קובע למוגבל בניידות ב-100%",
+  "effective_date": "1979-07-29",
+  "expiry_date": null,
+  "priority": "statutory",
+  "conditions": {
+    "type": "AND",
+    "operands": [
+      { "type": "COMPARISON", "variable": "driver_license_holder", "operator": "eq", "value": true },
+      { "type": "COMPARISON", "variable": "disability_percentage", "operator": "eq", "value": 100 },
+      { "type": "COMPARISON", "variable": "is_wheelchair_bound", "operator": "eq", "value": true },
+      { "type": "COMPARISON", "variable": "is_employed", "operator": "eq", "value": true },
+      { "type": "COMPARISON", "variable": "receives_disability_pension", "operator": "eq", "value": false }
+    ]
+  },
+  "actions": [
+    { "action_type": "determine_eligibility", "parameters": { "outcome": "eligible", "benefit_type": "qualifying_vehicle_2000cc", "note": "רכב קובע 2000 סמ\"ק - 100% מוגבלות, מרותק לכיסא גלגלים, משתכר, לא מקבל גמלת נכות" } }
+  ],
+  "legal_citation": {
+    "document_name": "הסכם הניידות",
+    "section": "9א",
+    "paragraph": "א",
+    "clause": null
+  },
+  "discretionary_flag": false,
+  "discretionary_reason": null,
+  "decision_tree": {
+    "node_id": "s9a-root",
+    "node_type": "condition",
+    "condition": {
+      "type": "AND",
+      "operands": [
+        { "type": "COMPARISON", "variable": "driver_license_holder", "operator": "eq", "value": true },
+        { "type": "COMPARISON", "variable": "disability_percentage", "operator": "eq", "value": 100 },
+        { "type": "COMPARISON", "variable": "is_wheelchair_bound", "operator": "eq", "value": true },
+        { "type": "COMPARISON", "variable": "is_employed", "operator": "eq", "value": true }
+      ]
+    },
+    "true_branch": {
+      "node_id": "s9a-eligible",
+      "node_type": "leaf",
+      "outcome": "eligible",
+      "legal_citation": { "document_name": "הסכם הניידות", "section": "9א", "paragraph": "א", "clause": "רכב קובע 2000 סמ\"ק" },
+      "depth": 1
+    },
+    "false_branch": {
+      "node_id": "s9a-not-eligible",
+      "node_type": "leaf",
+      "outcome": "not_eligible",
+      "legal_citation": { "document_name": "הסכם הניידות", "section": "9א", "paragraph": "א", "clause": null },
+      "depth": 1
+    },
+    "legal_citation": { "document_name": "הסכם הניידות", "section": "9א", "paragraph": "א", "clause": null },
+    "depth": 0
+  }
+}

@@ -1,0 +1,58 @@
+{
+  "rule_id": "00000000-0000-0000-0000-000000000109",
+  "rule_name": "הפסקת תשלום קצבת ניידות - סעיף 20 להסכם",
+  "source_document_id": "mobility-agreement-section-20",
+  "source_section": "הסכם הניידות - סעיף 20 - הפסקת תשלום",
+  "effective_date": "1977-06-01",
+  "expiry_date": null,
+  "priority": "statutory",
+  "conditions": {
+    "type": "OR",
+    "operands": [
+      { "type": "COMPARISON", "variable": "hospitalization_months", "operator": "gte", "value": 3 },
+      { "type": "COMPARISON", "variable": "months_without_vehicle_use", "operator": "gte", "value": 3 },
+      { "type": "COMPARISON", "variable": "eligibility_condition_ceased", "operator": "eq", "value": true },
+      { "type": "COMPARISON", "variable": "months_abroad", "operator": "gte", "value": 3 }
+    ]
+  },
+  "actions": [
+    { "action_type": "determine_eligibility", "parameters": { "outcome": "not_eligible", "benefit_type": "payment_suspension", "note": "הפסקת תשלום קצבת ניידות - אשפוז/הפסקת שימוש/חדל תנאי/יציאה מהארץ מעל 3 חודשים" } }
+  ],
+  "legal_citation": {
+    "document_name": "הסכם הניידות",
+    "section": "20",
+    "paragraph": "א",
+    "clause": null
+  },
+  "discretionary_flag": false,
+  "discretionary_reason": null,
+  "decision_tree": {
+    "node_id": "s20-root",
+    "node_type": "condition",
+    "condition": {
+      "type": "OR",
+      "operands": [
+        { "type": "COMPARISON", "variable": "hospitalization_months", "operator": "gte", "value": 3 },
+        { "type": "COMPARISON", "variable": "months_without_vehicle_use", "operator": "gte", "value": 3 },
+        { "type": "COMPARISON", "variable": "eligibility_condition_ceased", "operator": "eq", "value": true },
+        { "type": "COMPARISON", "variable": "months_abroad", "operator": "gte", "value": 3 }
+      ]
+    },
+    "true_branch": {
+      "node_id": "s20-suspended",
+      "node_type": "leaf",
+      "outcome": "not_eligible",
+      "legal_citation": { "document_name": "הסכם הניידות", "section": "20", "paragraph": "א", "clause": "הפסקת תשלום" },
+      "depth": 1
+    },
+    "false_branch": {
+      "node_id": "s20-continues",
+      "node_type": "leaf",
+      "outcome": "eligible",
+      "legal_citation": { "document_name": "הסכם הניידות", "section": "20", "paragraph": "א", "clause": "אין עילה להפסקה" },
+      "depth": 1
+    },
+    "legal_citation": { "document_name": "הסכם הניידות", "section": "20", "paragraph": "א", "clause": null },
+    "depth": 0
+  }
+}
