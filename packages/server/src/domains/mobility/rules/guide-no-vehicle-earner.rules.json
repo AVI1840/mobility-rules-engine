@@ -1,0 +1,58 @@
+{
+  "rule_id": "00000000-0000-0000-0000-000000000201",
+  "rule_name": "חסר רכב - משתכר",
+  "source_document_id": "mobility-guide-vehicle-less",
+  "source_section": "תדריך ניידות - קצבת חסר רכב - משתכר",
+  "effective_date": "1977-06-01",
+  "expiry_date": null,
+  "priority": "statutory",
+  "conditions": {
+    "type": "AND",
+    "operands": [
+      { "type": "COMPARISON", "variable": "age", "operator": "gte", "value": 18 },
+      { "type": "COMPARISON", "variable": "disability_percentage", "operator": "gte", "value": 80 },
+      { "type": "COMPARISON", "variable": "is_employed", "operator": "eq", "value": true },
+      { "type": "NOT", "operands": [{ "type": "COMPARISON", "variable": "receiving_disability_pension", "operator": "eq", "value": true }] }
+    ]
+  },
+  "actions": [
+    { "action_type": "determine_eligibility", "parameters": { "outcome": "eligible", "benefit_type": "vehicle_less_allowance", "note": "זכאי לקצבת חסר רכב - משתכר מעל גיל 18 עם 80% מוגבלות לפחות, לא מקבל קצבת נכות" } }
+  ],
+  "legal_citation": {
+    "document_name": "תדריך ניידות",
+    "section": "קצבת חסר רכב",
+    "paragraph": "משתכר",
+    "clause": null
+  },
+  "discretionary_flag": false,
+  "discretionary_reason": null,
+  "decision_tree": {
+    "node_id": "gnve-root",
+    "node_type": "condition",
+    "condition": {
+      "type": "AND",
+      "operands": [
+        { "type": "COMPARISON", "variable": "age", "operator": "gte", "value": 18 },
+        { "type": "COMPARISON", "variable": "disability_percentage", "operator": "gte", "value": 80 },
+        { "type": "COMPARISON", "variable": "is_employed", "operator": "eq", "value": true },
+        { "type": "NOT", "operands": [{ "type": "COMPARISON", "variable": "receiving_disability_pension", "operator": "eq", "value": true }] }
+      ]
+    },
+    "true_branch": {
+      "node_id": "gnve-eligible",
+      "node_type": "leaf",
+      "outcome": "eligible",
+      "legal_citation": { "document_name": "תדריך ניידות", "section": "קצבת חסר רכב", "paragraph": "משתכר", "clause": null },
+      "depth": 1
+    },
+    "false_branch": {
+      "node_id": "gnve-not-eligible",
+      "node_type": "leaf",
+      "outcome": "not_eligible",
+      "legal_citation": { "document_name": "תדריך ניידות", "section": "קצבת חסר רכב", "paragraph": "משתכר", "clause": null },
+      "depth": 1
+    },
+    "legal_citation": { "document_name": "תדריך ניידות", "section": "קצבת חסר רכב", "paragraph": "משתכר", "clause": null },
+    "depth": 0
+  }
+}

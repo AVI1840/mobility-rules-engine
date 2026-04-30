@@ -137,11 +137,18 @@ const SOURCES: SourceDoc[] = [
   },
 ];
 
+const PRIMARY_SOURCES = [
+  { name: 'מחשבון ניידות רשמי', desc: 'עוגן הלוגיקה העסקית — עץ החלטות מלא עם קודי סכום', status: 'מקודד במלואו' },
+  { name: 'הסכם הניידות', desc: 'ההסכם הראשי — סעיפים 4, 5, 9א, 11, 13, 14, 20, תוספות ג\'-ד\'', status: 'מקודד' },
+  { name: 'תדריך ניידות', desc: 'מדריך מקצועי לפקידים — ממתין לקידוד', status: 'ממתין' },
+];
+
 const PRIORITY_HIERARCHY = [
   { level: 1, label: 'עקיפה שיפוטית', color: 'bg-red-500', desc: 'פסקי דין גוברים על הכל' },
   { level: 2, label: 'חקיקה / הסכם', color: 'bg-blue-500', desc: 'הסכם הניידות ותיקוניו' },
-  { level: 3, label: 'חוזר מנהלי', color: 'bg-purple-500', desc: 'חוזרי ביטוח לאומי' },
-  { level: 4, label: 'נוהל', color: 'bg-gray-400', desc: 'הנחיות תפעוליות' },
+  { level: 3, label: 'מחשבון רשמי', color: 'bg-emerald-500', desc: 'עוגן הלוגיקה — מאושר ופעיל באתר' },
+  { level: 4, label: 'חוזר מנהלי', color: 'bg-purple-500', desc: 'חוזרי ביטוח לאומי' },
+  { level: 5, label: 'נוהל', color: 'bg-gray-400', desc: 'הנחיות תפעוליות' },
 ];
 
 export function SourceMaterials() {
@@ -181,6 +188,27 @@ export function SourceMaterials() {
             <p className="text-3xl font-bold" style={{ color: '#1B3A5C' }}>{SOURCES.length}</p>
             <p className="text-sm text-gray-600 mt-1">סה"כ מסמכים מקודדים ← {SOURCES.length} כללים פעילים</p>
           </div>
+        </CardContent>
+      </Card>
+
+      {/* Primary Sources */}
+      <Card className="border-2 border-[#1B3A5C]/30">
+        <CardHeader>
+          <CardTitle className="text-base" style={{ color: '#1B3A5C' }}>🏛️ מקורות ראשיים — בסיס הלוגיקה</CardTitle>
+        </CardHeader>
+        <CardContent className="space-y-3">
+          {PRIMARY_SOURCES.map((src, i) => (
+            <div key={i} className="flex items-center gap-3 p-3 rounded-lg bg-[#1B3A5C]/5 border border-[#1B3A5C]/20">
+              <div className="w-8 h-8 rounded-full bg-[#1B3A5C] text-white flex items-center justify-center text-sm font-bold flex-shrink-0">{i + 1}</div>
+              <div className="flex-1">
+                <p className="text-sm font-bold">{src.name}</p>
+                <p className="text-xs text-gray-600">{src.desc}</p>
+              </div>
+              <span className={`text-xs px-2 py-1 rounded-full font-medium ${src.status === 'ממתין' ? 'bg-amber-100 text-amber-700' : 'bg-green-100 text-green-700'}`}>
+                {src.status}
+              </span>
+            </div>
+          ))}
         </CardContent>
       </Card>
 

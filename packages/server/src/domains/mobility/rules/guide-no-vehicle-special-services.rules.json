@@ -1,0 +1,66 @@
+{
+  "rule_id": "00000000-0000-0000-0000-000000000202",
+  "rule_name": "חסר רכב - מקבל שירותים מיוחדים",
+  "source_document_id": "mobility-guide-vehicle-less",
+  "source_section": "תדריך ניידות - קצבת חסר רכב - מקבל שירותים מיוחדים",
+  "effective_date": "1977-06-01",
+  "expiry_date": null,
+  "priority": "statutory",
+  "conditions": {
+    "type": "AND",
+    "operands": [
+      {
+        "type": "OR",
+        "operands": [
+          { "type": "COMPARISON", "variable": "disability_percentage", "operator": "eq", "value": 100 },
+          { "type": "COMPARISON", "variable": "wheelchair_user", "operator": "eq", "value": true }
+        ]
+      },
+      { "type": "COMPARISON", "variable": "receives_special_services", "operator": "eq", "value": true }
+    ]
+  },
+  "actions": [
+    { "action_type": "determine_eligibility", "parameters": { "outcome": "eligible", "benefit_type": "vehicle_less_allowance", "note": "זכאי לקצבת חסר רכב - מקבל שירותים מיוחדים עם 100% מוגבלות או מרותק לכיסא גלגלים" } }
+  ],
+  "legal_citation": {
+    "document_name": "תדריך ניידות",
+    "section": "קצבת חסר רכב",
+    "paragraph": "מקבל שירותים מיוחדים",
+    "clause": null
+  },
+  "discretionary_flag": false,
+  "discretionary_reason": null,
+  "decision_tree": {
+    "node_id": "gnvss-root",
+    "node_type": "condition",
+    "condition": {
+      "type": "AND",
+      "operands": [
+        {
+          "type": "OR",
+          "operands": [
+            { "type": "COMPARISON", "variable": "disability_percentage", "operator": "eq", "value": 100 },
+            { "type": "COMPARISON", "variable": "wheelchair_user", "operator": "eq", "value": true }
+          ]
+        },
+        { "type": "COMPARISON", "variable": "receives_special_services", "operator": "eq", "value": true }
+      ]
+    },
+    "true_branch": {
+      "node_id": "gnvss-eligible",
+      "node_type": "leaf",
+      "outcome": "eligible",
+      "legal_citation": { "document_name": "תדריך ניידות", "section": "קצבת חסר רכב", "paragraph": "מקבל שירותים מיוחדים", "clause": null },
+      "depth": 1
+    },
+    "false_branch": {
+      "node_id": "gnvss-not-eligible",
+      "node_type": "leaf",
+      "outcome": "not_eligible",
+      "legal_citation": { "document_name": "תדריך ניידות", "section": "קצבת חסר רכב", "paragraph": "מקבל שירותים מיוחדים", "clause": null },
+      "depth": 1
+    },
+    "legal_citation": { "document_name": "תדריך ניידות", "section": "קצבת חסר רכב", "paragraph": "מקבל שירותים מיוחדים", "clause": null },
+    "depth": 0
+  }
+}

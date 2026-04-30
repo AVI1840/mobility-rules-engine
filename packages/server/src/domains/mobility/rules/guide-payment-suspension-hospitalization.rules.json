@@ -1,0 +1,54 @@
+{
+  "rule_id": "00000000-0000-0000-0000-000000000207",
+  "rule_name": "הפסקת קצבה - אשפוז",
+  "source_document_id": "mobility-guide-payment-suspension",
+  "source_section": "תדריך ניידות - הפסקת קצבה - אשפוז",
+  "effective_date": "1977-06-01",
+  "expiry_date": null,
+  "priority": "statutory",
+  "conditions": {
+    "type": "AND",
+    "operands": [
+      { "type": "COMPARISON", "variable": "is_hospitalized", "operator": "eq", "value": true },
+      { "type": "COMPARISON", "variable": "months_hospitalized", "operator": "gte", "value": 3 }
+    ]
+  },
+  "actions": [
+    { "action_type": "determine_eligibility", "parameters": { "outcome": "not_eligible", "benefit_type": "payment_suspension", "note": "הפסקת קצבה עקב אשפוז - מופסקת מה-1 בחודש שלאחר 3 חודשי אשפוז" } }
+  ],
+  "legal_citation": {
+    "document_name": "תדריך ניידות",
+    "section": "הפסקת קצבה",
+    "paragraph": "אשפוז",
+    "clause": null
+  },
+  "discretionary_flag": false,
+  "discretionary_reason": null,
+  "decision_tree": {
+    "node_id": "gpsh-root",
+    "node_type": "condition",
+    "condition": {
+      "type": "AND",
+      "operands": [
+        { "type": "COMPARISON", "variable": "is_hospitalized", "operator": "eq", "value": true },
+        { "type": "COMPARISON", "variable": "months_hospitalized", "operator": "gte", "value": 3 }
+      ]
+    },
+    "true_branch": {
+      "node_id": "gpsh-suspended",
+      "node_type": "leaf",
+      "outcome": "not_eligible",
+      "legal_citation": { "document_name": "תדריך ניידות", "section": "הפסקת קצבה", "paragraph": "אשפוז", "clause": "הפסקה מה-1 בחודש שלאחר 3 חודשי אשפוז" },
+      "depth": 1
+    },
+    "false_branch": {
+      "node_id": "gpsh-continues",
+      "node_type": "leaf",
+      "outcome": "eligible",
+      "legal_citation": { "document_name": "תדריך ניידות", "section": "הפסקת קצבה", "paragraph": "אשפוז", "clause": "אין עילה להפסקה - אשפוז פחות מ-3 חודשים" },
+      "depth": 1
+    },
+    "legal_citation": { "document_name": "תדריך ניידות", "section": "הפסקת קצבה", "paragraph": "אשפוז", "clause": null },
+    "depth": 0
+  }
+}

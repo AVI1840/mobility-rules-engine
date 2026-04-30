@@ -1,0 +1,102 @@
+{
+  "rule_id": "00000000-0000-0000-0000-000000000212",
+  "rule_name": "לימודי נהיגה",
+  "source_document_id": "mobility-guide-driving-lessons",
+  "source_section": "תדריך ניידות - לימודי נהיגה",
+  "effective_date": "1977-06-01",
+  "expiry_date": null,
+  "priority": "statutory",
+  "conditions": {
+    "type": "OR",
+    "operands": [
+      {
+        "type": "AND",
+        "operands": [
+          { "type": "NOT", "operands": [{ "type": "COMPARISON", "variable": "driver_license_holder", "operator": "eq", "value": true }] },
+          { "type": "COMPARISON", "variable": "vehicle_has_special_equipment", "operator": "eq", "value": true },
+          { "type": "COMPARISON", "variable": "age", "operator": "gte", "value": 17 },
+          { "type": "COMPARISON", "variable": "not_disqualified_from_driving", "operator": "eq", "value": true }
+        ]
+      },
+      {
+        "type": "AND",
+        "operands": [
+          { "type": "COMPARISON", "variable": "driver_license_holder", "operator": "eq", "value": true },
+          { "type": "COMPARISON", "variable": "requires_driving_retest", "operator": "eq", "value": true }
+        ]
+      }
+    ]
+  },
+  "actions": [
+    { "action_type": "determine_eligibility", "parameters": { "outcome": "eligible", "benefit_type": "driving_lessons", "note": "זכאי למימון לימודי נהיגה - לומד חדש (ללא רישיון, רכב מאובזר, גיל 17+, לא נפסל) או בעל רישיון הנדרש למבחן חוזר" } }
+  ],
+  "legal_citation": {
+    "document_name": "תדריך ניידות",
+    "section": "לימודי נהיגה",
+    "paragraph": "זכאות",
+    "clause": null
+  },
+  "discretionary_flag": false,
+  "discretionary_reason": null,
+  "decision_tree": {
+    "node_id": "gdl-root",
+    "node_type": "condition",
+    "condition": {
+      "type": "NOT",
+      "operands": [{ "type": "COMPARISON", "variable": "driver_license_holder", "operator": "eq", "value": true }]
+    },
+    "true_branch": {
+      "node_id": "gdl-new-learner",
+      "node_type": "condition",
+      "condition": {
+        "type": "AND",
+        "operands": [
+          { "type": "COMPARISON", "variable": "vehicle_has_special_equipment", "operator": "eq", "value": true },
+          { "type": "COMPARISON", "variable": "age", "operator": "gte", "value": 17 },
+          { "type": "COMPARISON", "variable": "not_disqualified_from_driving", "operator": "eq", "value": true }
+        ]
+      },
+      "true_branch": {
+        "node_id": "gdl-new-learner-eligible",
+        "node_type": "leaf",
+        "outcome": "eligible",
+        "legal_citation": { "document_name": "תדריך ניידות", "section": "לימודי נהיגה", "paragraph": "זכאות", "clause": "לומד חדש - ללא רישיון, רכב מאובזר, גיל 17+" },
+        "depth": 2
+      },
+      "false_branch": {
+        "node_id": "gdl-new-learner-not-eligible",
+        "node_type": "leaf",
+        "outcome": "not_eligible",
+        "legal_citation": { "document_name": "תדריך ניידות", "section": "לימודי נהיגה", "paragraph": "זכאות", "clause": "לא עומד בתנאי לומד חדש" },
+        "depth": 2
+      },
+      "legal_citation": { "document_name": "תדריך ניידות", "section": "לימודי נהיגה", "paragraph": "זכאות", "clause": null },
+      "depth": 1
+    },
+    "false_branch": {
+      "node_id": "gdl-retest",
+      "node_type": "condition",
+      "condition": {
+        "type": "COMPARISON", "variable": "requires_driving_retest", "operator": "eq", "value": true
+      },
+      "true_branch": {
+        "node_id": "gdl-retest-eligible",
+        "node_type": "leaf",
+        "outcome": "eligible",
+        "legal_citation": { "document_name": "תדריך ניידות", "section": "לימודי נהיגה", "paragraph": "זכאות", "clause": "בעל רישיון הנדרש למבחן חוזר" },
+        "depth": 2
+      },
+      "false_branch": {
+        "node_id": "gdl-not-eligible",
+        "node_type": "leaf",
+        "outcome": "not_eligible",
+        "legal_citation": { "document_name": "תדריך ניידות", "section": "לימודי נהיגה", "paragraph": "זכאות", "clause": "בעל רישיון ללא צורך במבחן חוזר" },
+        "depth": 2
+      },
+      "legal_citation": { "document_name": "תדריך ניידות", "section": "לימודי נהיגה", "paragraph": "זכאות", "clause": null },
+      "depth": 1
+    },
+    "legal_citation": { "document_name": "תדריך ניידות", "section": "לימודי נהיגה", "paragraph": "זכאות", "clause": null },
+    "depth": 0
+  }
+}

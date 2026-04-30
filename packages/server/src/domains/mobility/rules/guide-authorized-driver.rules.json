@@ -1,0 +1,56 @@
+{
+  "rule_id": "00000000-0000-0000-0000-000000000209",
+  "rule_name": "מורשה נהיגה - תנאי אישור",
+  "source_document_id": "mobility-guide-authorized-driver",
+  "source_section": "תדריך ניידות - מורשה נהיגה - תנאי אישור",
+  "effective_date": "1977-06-01",
+  "expiry_date": null,
+  "priority": "statutory",
+  "conditions": {
+    "type": "AND",
+    "operands": [
+      { "type": "COMPARISON", "variable": "authorized_driver_is_family_or_caretaker", "operator": "eq", "value": true },
+      { "type": "COMPARISON", "variable": "authorized_driver_has_license", "operator": "eq", "value": true },
+      { "type": "COMPARISON", "variable": "authorized_driver_distance_meters", "operator": "lte", "value": 1500 }
+    ]
+  },
+  "actions": [
+    { "action_type": "determine_eligibility", "parameters": { "outcome": "eligible", "benefit_type": "authorized_driver_approval", "note": "מורשה נהיגה מאושר - בן משפחה או מטפל, בעל רישיון נהיגה, מרחק עד 1500 מטר" } }
+  ],
+  "legal_citation": {
+    "document_name": "תדריך ניידות",
+    "section": "מורשה נהיגה",
+    "paragraph": "תנאי אישור",
+    "clause": null
+  },
+  "discretionary_flag": false,
+  "discretionary_reason": null,
+  "decision_tree": {
+    "node_id": "gad-root",
+    "node_type": "condition",
+    "condition": {
+      "type": "AND",
+      "operands": [
+        { "type": "COMPARISON", "variable": "authorized_driver_is_family_or_caretaker", "operator": "eq", "value": true },
+        { "type": "COMPARISON", "variable": "authorized_driver_has_license", "operator": "eq", "value": true },
+        { "type": "COMPARISON", "variable": "authorized_driver_distance_meters", "operator": "lte", "value": 1500 }
+      ]
+    },
+    "true_branch": {
+      "node_id": "gad-eligible",
+      "node_type": "leaf",
+      "outcome": "eligible",
+      "legal_citation": { "document_name": "תדריך ניידות", "section": "מורשה נהיגה", "paragraph": "תנאי אישור", "clause": null },
+      "depth": 1
+    },
+    "false_branch": {
+      "node_id": "gad-not-eligible",
+      "node_type": "leaf",
+      "outcome": "not_eligible",
+      "legal_citation": { "document_name": "תדריך ניידות", "section": "מורשה נהיגה", "paragraph": "תנאי אישור", "clause": null },
+      "depth": 1
+    },
+    "legal_citation": { "document_name": "תדריך ניידות", "section": "מורשה נהיגה", "paragraph": "תנאי אישור", "clause": null },
+    "depth": 0
+  }
+}

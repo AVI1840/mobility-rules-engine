@@ -1,0 +1,108 @@
+{
+  "rule_id": "00000000-0000-0000-0000-000000000208",
+  "rule_name": "הפסקת קצבה - יציאה לחו\"ל",
+  "source_document_id": "mobility-guide-payment-suspension",
+  "source_section": "תדריך ניידות - הפסקת קצבה - יציאה לחו\"ל",
+  "effective_date": "1977-06-01",
+  "expiry_date": null,
+  "priority": "statutory",
+  "conditions": {
+    "type": "AND",
+    "operands": [
+      { "type": "COMPARISON", "variable": "is_abroad", "operator": "eq", "value": true },
+      { "type": "COMPARISON", "variable": "months_abroad", "operator": "gte", "value": 3 },
+      { "type": "COMPARISON", "variable": "received_allowance_3_months_before_departure", "operator": "eq", "value": true }
+    ]
+  },
+  "actions": [
+    { "action_type": "determine_eligibility", "parameters": { "outcome": "not_eligible", "benefit_type": "payment_suspension", "note": "הפסקת קצבה עקב יציאה לחו\"ל מעל 3 חודשים. חריגים: שליחות מדינה (ללא הגבלה), טיפול רפואי או שליחות מעסיק (עד 24 חודשים) - דורשים שיקול דעת" } }
+  ],
+  "legal_citation": {
+    "document_name": "תדריך ניידות",
+    "section": "הפסקת קצבה",
+    "paragraph": "יציאה לחו\"ל",
+    "clause": null
+  },
+  "discretionary_flag": true,
+  "discretionary_reason": "חריגים: שליחות מדינה (ללא הגבלה), טיפול רפואי או שליחות מעסיק (עד 24 חודשים) - דורשים שיקול דעת",
+  "decision_tree": {
+    "node_id": "gpsa-root",
+    "node_type": "condition",
+    "condition": {
+      "type": "AND",
+      "operands": [
+        { "type": "COMPARISON", "variable": "is_abroad", "operator": "eq", "value": true },
+        { "type": "COMPARISON", "variable": "months_abroad", "operator": "gte", "value": 3 },
+        { "type": "COMPARISON", "variable": "received_allowance_3_months_before_departure", "operator": "eq", "value": true }
+      ]
+    },
+    "true_branch": {
+      "node_id": "gpsa-check-state-mission",
+      "node_type": "condition",
+      "condition": {
+        "type": "COMPARISON", "variable": "is_state_mission", "operator": "eq", "value": true
+      },
+      "true_branch": {
+        "node_id": "gpsa-state-mission-exempt",
+        "node_type": "leaf",
+        "outcome": "eligible",
+        "legal_citation": { "document_name": "תדריך ניידות", "section": "הפסקת קצבה", "paragraph": "יציאה לחו\"ל", "clause": "חריג - שליחות מדינה ללא הגבלת זמן" },
+        "depth": 2
+      },
+      "false_branch": {
+        "node_id": "gpsa-check-medical-employer",
+        "node_type": "condition",
+        "condition": {
+          "type": "OR",
+          "operands": [
+            { "type": "COMPARISON", "variable": "is_medical_treatment_abroad", "operator": "eq", "value": true },
+            { "type": "COMPARISON", "variable": "is_employer_mission", "operator": "eq", "value": true }
+          ]
+        },
+        "true_branch": {
+          "node_id": "gpsa-check-24-months",
+          "node_type": "condition",
+          "condition": {
+            "type": "COMPARISON", "variable": "months_abroad", "operator": "lte", "value": 24
+          },
+          "true_branch": {
+            "node_id": "gpsa-medical-employer-exempt",
+            "node_type": "leaf",
+            "outcome": "eligible",
+            "legal_citation": { "document_name": "תדריך ניידות", "section": "הפסקת קצבה", "paragraph": "יציאה לחו\"ל", "clause": "חריג - טיפול רפואי/שליחות מעסיק עד 24 חודשים" },
+            "depth": 4
+          },
+          "false_branch": {
+            "node_id": "gpsa-medical-employer-exceeded",
+            "node_type": "leaf",
+            "outcome": "not_eligible",
+            "legal_citation": { "document_name": "תדריך ניידות", "section": "הפסקת קצבה", "paragraph": "יציאה לחו\"ל", "clause": "חריג חרג מ-24 חודשים" },
+            "depth": 4
+          },
+          "legal_citation": { "document_name": "תדריך ניידות", "section": "הפסקת קצבה", "paragraph": "יציאה לחו\"ל", "clause": null },
+          "depth": 3
+        },
+        "false_branch": {
+          "node_id": "gpsa-suspended",
+          "node_type": "leaf",
+          "outcome": "not_eligible",
+          "legal_citation": { "document_name": "תדריך ניידות", "section": "הפסקת קצבה", "paragraph": "יציאה לחו\"ל", "clause": "הפסקת קצבה - שהייה בחו\"ל מעל 3 חודשים" },
+          "depth": 3
+        },
+        "legal_citation": { "document_name": "תדריך ניידות", "section": "הפסקת קצבה", "paragraph": "יציאה לחו\"ל", "clause": null },
+        "depth": 2
+      },
+      "legal_citation": { "document_name": "תדריך ניידות", "section": "הפסקת קצבה", "paragraph": "יציאה לחו\"ל", "clause": null },
+      "depth": 1
+    },
+    "false_branch": {
+      "node_id": "gpsa-no-suspension",
+      "node_type": "leaf",
+      "outcome": "eligible",
+      "legal_citation": { "document_name": "תדריך ניידות", "section": "הפסקת קצבה", "paragraph": "יציאה לחו\"ל", "clause": "אין עילה להפסקה" },
+      "depth": 1
+    },
+    "legal_citation": { "document_name": "תדריך ניידות", "section": "הפסקת קצבה", "paragraph": "יציאה לחו\"ל", "clause": null },
+    "depth": 0
+  }
+}

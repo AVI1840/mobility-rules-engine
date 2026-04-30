@@ -1,0 +1,103 @@
+{
+  "rule_id": "00000000-0000-0000-0000-000000000204",
+  "rule_name": "קצבת בעל רכב - תנאי זכאות",
+  "source_document_id": "mobility-guide-vehicle-owner",
+  "source_section": "תדריך ניידות - קצבת בעל רכב - תנאי זכאות",
+  "effective_date": "1977-06-01",
+  "expiry_date": null,
+  "priority": "statutory",
+  "conditions": {
+    "type": "AND",
+    "operands": [
+      { "type": "COMPARISON", "variable": "disability_percentage", "operator": "gte", "value": 40 },
+      { "type": "COMPARISON", "variable": "has_vehicle", "operator": "eq", "value": true },
+      {
+        "type": "OR",
+        "operands": [
+          { "type": "COMPARISON", "variable": "driver_license_holder", "operator": "eq", "value": true },
+          {
+            "type": "AND",
+            "operands": [
+              { "type": "COMPARISON", "variable": "authorized_driver_status", "operator": "eq", "value": true },
+              { "type": "COMPARISON", "variable": "has_approved_authorized_driver", "operator": "eq", "value": true }
+            ]
+          }
+        ]
+      }
+    ]
+  },
+  "actions": [
+    { "action_type": "determine_eligibility", "parameters": { "outcome": "eligible", "benefit_type": "mobility_allowance", "note": "זכאי לקצבת בעל רכב - 40% מוגבלות לפחות, בעל רכב, בעל רישיון או מורשה נהיגה מאושר" } }
+  ],
+  "legal_citation": {
+    "document_name": "תדריך ניידות",
+    "section": "קצבת בעל רכב",
+    "paragraph": "תנאי זכאות",
+    "clause": null
+  },
+  "discretionary_flag": false,
+  "discretionary_reason": null,
+  "decision_tree": {
+    "node_id": "gvoa-root",
+    "node_type": "condition",
+    "condition": {
+      "type": "AND",
+      "operands": [
+        { "type": "COMPARISON", "variable": "disability_percentage", "operator": "gte", "value": 40 },
+        { "type": "COMPARISON", "variable": "has_vehicle", "operator": "eq", "value": true }
+      ]
+    },
+    "true_branch": {
+      "node_id": "gvoa-check-driver",
+      "node_type": "condition",
+      "condition": {
+        "type": "COMPARISON", "variable": "driver_license_holder", "operator": "eq", "value": true
+      },
+      "true_branch": {
+        "node_id": "gvoa-eligible-license",
+        "node_type": "leaf",
+        "outcome": "eligible",
+        "legal_citation": { "document_name": "תדריך ניידות", "section": "קצבת בעל רכב", "paragraph": "תנאי זכאות", "clause": "בעל רישיון נהיגה" },
+        "depth": 2
+      },
+      "false_branch": {
+        "node_id": "gvoa-check-authorized",
+        "node_type": "condition",
+        "condition": {
+          "type": "AND",
+          "operands": [
+            { "type": "COMPARISON", "variable": "authorized_driver_status", "operator": "eq", "value": true },
+            { "type": "COMPARISON", "variable": "has_approved_authorized_driver", "operator": "eq", "value": true }
+          ]
+        },
+        "true_branch": {
+          "node_id": "gvoa-eligible-authorized",
+          "node_type": "leaf",
+          "outcome": "eligible",
+          "legal_citation": { "document_name": "תדריך ניידות", "section": "קצבת בעל רכב", "paragraph": "תנאי זכאות", "clause": "מורשה נהיגה מאושר" },
+          "depth": 3
+        },
+        "false_branch": {
+          "node_id": "gvoa-not-eligible-no-driver",
+          "node_type": "leaf",
+          "outcome": "not_eligible",
+          "legal_citation": { "document_name": "תדריך ניידות", "section": "קצבת בעל רכב", "paragraph": "תנאי זכאות", "clause": "אין רישיון ואין מורשה נהיגה מאושר" },
+          "depth": 3
+        },
+        "legal_citation": { "document_name": "תדריך ניידות", "section": "קצבת בעל רכב", "paragraph": "תנאי זכאות", "clause": null },
+        "depth": 2
+      },
+      "legal_citation": { "document_name": "תדריך ניידות", "section": "קצבת בעל רכב", "paragraph": "תנאי זכאות", "clause": null },
+      "depth": 1
+    },
+    "false_branch": {
+      "node_id": "gvoa-not-eligible",
+      "node_type": "leaf",
+      "outcome": "not_eligible",
+      "legal_citation": { "document_name": "תדריך ניידות", "section": "קצבת בעל רכב", "paragraph": "תנאי זכאות", "clause": "לא עומד בתנאי סף - מוגבלות או רכב" },
+      "depth": 1
+    },
+    "legal_citation": { "document_name": "תדריך ניידות", "section": "קצבת בעל רכב", "paragraph": "תנאי זכאות", "clause": null },
+    "depth": 0
+  }
+}

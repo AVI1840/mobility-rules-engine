@@ -1,0 +1,58 @@
+{
+  "rule_id": "00000000-0000-0000-0000-000000000210",
+  "rule_name": "הלוואה למתקן הרמה",
+  "source_document_id": "mobility-guide-wheelchair-lift",
+  "source_section": "תדריך ניידות - מתקן הרמה - הלוואה",
+  "effective_date": "1977-06-01",
+  "expiry_date": null,
+  "priority": "statutory",
+  "conditions": {
+    "type": "AND",
+    "operands": [
+      { "type": "COMPARISON", "variable": "receives_mobility_allowance", "operator": "eq", "value": true },
+      { "type": "COMPARISON", "variable": "wheelchair_user", "operator": "eq", "value": true },
+      { "type": "COMPARISON", "variable": "has_suitable_vehicle", "operator": "eq", "value": true },
+      { "type": "COMPARISON", "variable": "years_since_last_installation", "operator": "gte", "value": 5 }
+    ]
+  },
+  "actions": [
+    { "action_type": "determine_eligibility", "parameters": { "outcome": "eligible", "benefit_type": "loan", "note": "זכאי להלוואה למתקן הרמה - 95% מהעלות או מחיר מייצג (הנמוך מביניהם)" } }
+  ],
+  "legal_citation": {
+    "document_name": "תדריך ניידות",
+    "section": "מתקן הרמה",
+    "paragraph": "הלוואה",
+    "clause": null
+  },
+  "discretionary_flag": false,
+  "discretionary_reason": null,
+  "decision_tree": {
+    "node_id": "gwl-root",
+    "node_type": "condition",
+    "condition": {
+      "type": "AND",
+      "operands": [
+        { "type": "COMPARISON", "variable": "receives_mobility_allowance", "operator": "eq", "value": true },
+        { "type": "COMPARISON", "variable": "wheelchair_user", "operator": "eq", "value": true },
+        { "type": "COMPARISON", "variable": "has_suitable_vehicle", "operator": "eq", "value": true },
+        { "type": "COMPARISON", "variable": "years_since_last_installation", "operator": "gte", "value": 5 }
+      ]
+    },
+    "true_branch": {
+      "node_id": "gwl-eligible",
+      "node_type": "leaf",
+      "outcome": "eligible",
+      "legal_citation": { "document_name": "תדריך ניידות", "section": "מתקן הרמה", "paragraph": "הלוואה", "clause": "95% מהעלות או מחיר מייצג (הנמוך מביניהם)" },
+      "depth": 1
+    },
+    "false_branch": {
+      "node_id": "gwl-not-eligible",
+      "node_type": "leaf",
+      "outcome": "not_eligible",
+      "legal_citation": { "document_name": "תדריך ניידות", "section": "מתקן הרמה", "paragraph": "הלוואה", "clause": null },
+      "depth": 1
+    },
+    "legal_citation": { "document_name": "תדריך ניידות", "section": "מתקן הרמה", "paragraph": "הלוואה", "clause": null },
+    "depth": 0
+  }
+}
